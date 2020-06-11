@@ -1,7 +1,7 @@
 
 $(document).ready(() => {
 
-//    $("#cpf").mask("999.999.999-99");
+    $("#cpf").mask("999.999.999-99");
 
     $("#inscrever_se").on("click", event => {
         event.preventDefault();
@@ -17,7 +17,7 @@ $(document).ready(() => {
             data: form,
             dataType: "json",
             success: sucesso => {
-                
+                console.log(sucesso);   
                 $("#erro_nome").html(sucesso.erro_nome);
                 $("#erro_cpf").html(sucesso.erro_cpf);
                 $("#erro_email").html(sucesso.erro_email);
