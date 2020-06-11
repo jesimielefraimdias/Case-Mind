@@ -36,3 +36,5 @@ class Login_model extends Model
         return $query->getResult();
     }
 }
+
+?>

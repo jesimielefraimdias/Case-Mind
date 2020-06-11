@@ -52,3 +52,5 @@ class Inscricao_model extends Model
         return $query->getResult();//($query->num_rows() > 0) ? $query->getResultArray() : null;
     }
 }
+
+?>

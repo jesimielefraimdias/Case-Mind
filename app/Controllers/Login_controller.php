@@ -3,14 +3,15 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\Login_model;
 
-class Login_controller extends BaseController
+class Login_controller extends Controller
 {
-    protected $login_model;
+    protected $model;
 
     public function __construct()
     {
-        $this->login_model =new Login_model();
+        $this->model = new Login_model();
     }
 
     public function Index()
@@ -50,6 +51,7 @@ class Login_controller extends BaseController
     private function validar_dados()
     {
         $erro = "n";
+        $erro_emailorcpf = $erro_senha = "";
 
         if (!filter_var($_POST["emailorcpf"], FILTER_VALIDATE_EMAIL) && !$this->valida_cpf($_POST["emailorcpf"])) {
             $erro_emailorcpf = "Digite um email/cpf válido";
@@ -57,17 +59,40 @@ class Login_controller extends BaseController
         }
 
         if (empty($_POST["senha"])) {
-            $erro_senha = "Campo da senha vázio";
+            $erro_senha = "Campo da senha está vázio!";
             $erro = "s";
         }
 
-        return ["erro" => $erro, "erro_emailorcpf" => $erro_emailorcpf, "erro_senha" => $erro_senha];
+        return ["erro" => $erro, "erro_emailorcpf" => $erro_emailorcpf, "erro_senha" => $erro_senha, "erro_login" => ""];
     }
 
     public function login()
     {
         $retorno = $this->validar_dados();
 
+        if ($retorno["erro"] == "s") {
+            echo json_encode($retorno);
+            return;
+        }
+
+        if (($dados = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"]))) == null) {
+            if (($dados = $this->model->get_usuario_email($_POST["email"])) == null) {
+                $retorno["erro_login"] = "Verifique os dados digitados!";
+                $retorno["erro"] == "s";
+                echo json_encode($retorno);
+                return;
+            }
+        }
+
+        if (!password_verify($_POST["senha"], $dados["senha"])) {
+            $retorno["erro_login"] = "Senha incorreta!";
+            $retorno["erro"] == "s";
+            echo json_encode($retorno);
+            return;
+        }
+
+        session_start();
+        $_SESSION["grau_acesso"] = $dados["grau_acesso"];
         echo json_encode($retorno);
     }
 }
