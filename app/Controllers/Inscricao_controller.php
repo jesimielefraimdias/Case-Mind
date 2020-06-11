@@ -12,6 +12,34 @@ class Inscricao_controller extends Controller
         return view("inscricao");
     }
 
+    public function valida_cpf($cpf){
+
+        // Extrai somente os números
+        $cpf = preg_replace( '/[^0-9]/is', '',$cpf);
+       
+        // Verifica se foi informado todos os digitos corretamente
+        if (strlen($cpf) != 11) {
+            return false;
+        }
+
+        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+        if (preg_match('/(\d)\1{10}/', $cpf)) {
+            return false;
+        }
+
+        // Faz o calculo para validar o CPF
+        for ($t = 9; $t < 11; $t++) {
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf[$c] * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf[$c] != $d) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public function validar_dados()
     {
 
@@ -20,12 +48,18 @@ class Inscricao_controller extends Controller
         $lowercase = preg_match('@[a-z]@', $_POST["senha"]);
         $number    = preg_match('@[0-9]@', $_POST["senha"]);
         $specialChars = preg_match('@[^\w]@', $_POST["senha"]);
+
         $erro = "n";
-        $erro_nome = $erro_email = $erro_senha = "";
+        $erro_nome = $erro_cpf = $erro_email = $erro_senha = "";
 
         if (!preg_match("/^[a-zA-Z ]*$/", $_POST["nome"]) || empty($_POST["nome"])) {
             $erro_nome = "Digite um nome válido!";
             $erro = "s";        
+        }
+
+        if(!$this->valida_cpf($_POST["cpf"])){
+            $erro_cpf = "Digite um cpf válido!";
+            $erro = "s";
         }
 
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
@@ -59,7 +93,7 @@ class Inscricao_controller extends Controller
             $erro = "s";
         }
 
-        return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_email" => $erro_email, "erro_senha" => $erro_senha];    
+        return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_cpf" => $erro_cpf, "erro_email" => $erro_email, "erro_senha" => $erro_senha];    
     }
 
     public function cadastro()
@@ -74,7 +108,9 @@ class Inscricao_controller extends Controller
         }
 
         $model = new Inscricao_model();
-        
+
+        // Extrai somente os números
+        $cpf = preg_replace( '/[^0-9]/is', '',$_POST["cpf"]);
         $model->inserir($_POST["nome"], $_POST["email"], password_hash($_POST["senha"], PASSWORD_DEFAULT));
         echo json_encode($retorno);
     }

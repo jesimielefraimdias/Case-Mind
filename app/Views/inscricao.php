@@ -15,7 +15,7 @@
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>
     <script src="<?php echo base_url('assets/scripts/inscricao.js'); ?>"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
@@ -33,7 +33,7 @@
     <title>Formulário de cadastro</title>
 
     <style>
-       
+
     </style>
 </head>
 
@@ -66,19 +66,25 @@
                         <div class="col-12 form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
-                            <span class = "text-danger" id ="erro_nome"></span>
+                            <span class="text-danger" id="erro_nome"></span>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="cpf">Cpf</label>
+                            <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Digite seu cpf">
+                            <span class="text-danger" id="erro_cpf"></span>
                         </div>
 
                         <div class="col-12 form-group">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" id="email" name="email" placeholder="Digite seu e-mail">
-                            <span class = "text-danger" id ="erro_email"></span>
+                            <span class="text-danger" id="erro_email"></span>
                         </div>
 
                         <div class="col-12 form-group">
                             <label for="senha">Senha</label>
                             <input class="form-control" type="password" id="senha" name="senha" placeholder="Crie uma senha">
-                            <span class = "text-danger" id ="erro_senha"></span>
+                            <span class="text-danger" id="erro_senha"></span>
                         </div>
 
                         <div class="row col-12 justify-content-around">
@@ -90,8 +96,8 @@
         </div>
     </section>
 
-    <footer class="align-self-end text-white bg-dark">
-        <div class="container py-3">
+    <footer class="mt-4 align-self-end text-white bg-dark">
+        <div class="py-3 container">
             Orgulhosamente desenvolvido por talvez um estagiário da Mind Consulting 2020.
         </div>
     </footer>
