@@ -16,7 +16,7 @@ class Login_controller extends Controller
 
     public function Index()
     {
-        return view("index");
+        return view("index.php");
     }
 
     public function valida_cpf($cpf)
@@ -68,6 +68,7 @@ class Login_controller extends Controller
 
     public function login()
     {
+
         $retorno = $this->validar_dados();
 
         if ($retorno["erro"] == "s") {
@@ -75,24 +76,26 @@ class Login_controller extends Controller
             return;
         }
 
-        if (($dados = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"]))) == null) {
-            if (($dados = $this->model->get_usuario_email($_POST["email"])) == null) {
+        if (($dados = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["emailorcpf"]))) == null) {
+            if (($dados = $this->model->get_usuario_email($_POST["emailorcpf"])) == null) {
                 $retorno["erro_login"] = "Verifique os dados digitados!";
-                $retorno["erro"] == "s";
+                $retorno["erro"] = "s";
                 echo json_encode($retorno);
                 return;
             }
         }
 
-        if (!password_verify($_POST["senha"], $dados["senha"])) {
+        if (!password_verify($_POST["senha"], $dados[0]->senha)) {
             $retorno["erro_login"] = "Senha incorreta!";
-            $retorno["erro"] == "s";
+            $retorno["erro"] = "s";
             echo json_encode($retorno);
             return;
         }
 
         session_start();
-        $_SESSION["grau_acesso"] = $dados["grau_acesso"];
+        $_SESSION["grau_acesso"] = $dados[0]->grau_acesso;
         echo json_encode($retorno);
     }
 }
+
+?>

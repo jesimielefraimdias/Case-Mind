@@ -126,3 +126,4 @@ class Inscricao_controller extends Controller
         echo json_encode($retorno);
     }
 }
+?>

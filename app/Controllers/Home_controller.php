@@ -8,7 +8,7 @@ class Home_controller extends Controller
 	{
 		session_start();
 
-		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] == "I"){
+		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I"){
 			return view('home.php');
 		}
 		

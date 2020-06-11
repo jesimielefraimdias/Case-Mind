@@ -16,14 +16,15 @@ $(document).ready(() => {
             data: form,
             dataType: "json",
             success: sucesso => {
+                console.log(sucesso);
                 $("#erro_emailorcpf").html(sucesso.erro_emailorcpf);
                 $("#erro_senha").html(sucesso.erro_senha);
-                $("erro_login").html(sucesso.erro_login);
-                $(location).attr("href",base_url+"\\Home_controller");    
+                $("#erro_login").html(sucesso.erro_login);
+                $(location).attr("href",base_url+"\\Home_controller");
             },
             error: erro => {
                // $(location).attr("href", base_url + "\\Erro_controller");
-                console.log("Erro: \n" + JSON.stringify(erro)+"\n");
+                console.log(JSON.stringify(erro));
             }
         });
 

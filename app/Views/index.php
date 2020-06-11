@@ -77,7 +77,7 @@
                                 <input name="senha" id="senha" type="password" class="form-control" placeholder="Senha">
                                 <div class = "text-danger" id ="erro_senha"></div>
                             </div>
-                            <input id="entrar" class="btn btn-lg btn-info btn-block" type="submit" value="Entrar">
+                            <input id="entrar" class="mb-4 btn btn-lg btn-info btn-block" type="submit" value="Entrar">
                         </form>
                         <div class = "text-center text-danger" id ="erro_login"></div>
                     </div>
