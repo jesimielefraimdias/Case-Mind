@@ -6,7 +6,7 @@ class Home_controller extends Controller
 {
 	public function index()
 	{
-		return view('index.php');
+		return view('home.php');
 	}
 
 	//--------------------------------------------------------------------

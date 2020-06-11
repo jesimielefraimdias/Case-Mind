@@ -15,6 +15,8 @@
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>    
     <script src="<?php echo base_url('assets/scripts/login.js'); ?>"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+   
 
     <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -67,8 +69,8 @@
                     <div class="card-body">
                         <form>
                             <div class="form-group">
-                                <input name="email" id="email" type="email" class="form-control" placeholder="E-mail">
-                                <div class = "text-danger" id ="erro_email"></div>
+                                <input name="emailorcpf" id="emailorcpf" type="text" class="form-control" placeholder="E-mail ou CPF">
+                                <div class = "text-danger" id ="erro_emailorcpf"></div>
                             </div>
 
                             <div class="form-group">
