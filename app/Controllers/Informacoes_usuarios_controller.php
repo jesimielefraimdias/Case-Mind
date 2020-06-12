@@ -13,7 +13,7 @@ class Informacoes_usuarios_controller extends Controller
 		session_start();
 		$this->model = new Informacoes_usuarios_model();
     }
-
+	
     public function permissao()
 	{
 		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] == "A"){
@@ -27,7 +27,6 @@ class Informacoes_usuarios_controller extends Controller
 		if(!$this->permissao()){
 			return view("erro.php");
 		}
-
         return view("informacoes_usuarios.php");
 	}
 

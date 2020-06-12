@@ -7,12 +7,24 @@ use App\Models\Home_model;
 
 class Home_controller extends Controller
 {
+	protected $id_usuario_comum;
 	protected $model;
+
 	public function __construct(){
 		
 		session_start();
+/*		if(isset($_GET["id_usuario_comum"])){
+			$this->id_usuario_comum = $_GET["id_usuario_comum"];
+		} else {
+			$this->id_usuario_comum = "Não chegou nada parça";
+		}*/
 		$this->model = new Home_model();
 		
+	}
+
+	public function setar_id(){
+		$_SESSION["id_usuario_comum"] = $_GET["id_usuario_comum"];
+		echo json_encode("Sucesso");
 	}
 
 	public function permissao()
@@ -29,6 +41,9 @@ class Home_controller extends Controller
 		if(!$this->permissao()){
 			return view("erro.php");
 		}
+/*		if(isset($_GET["id_usuario_comum"])){
+			$this->id_usuario_comum = $_GET["id_usuario_comum"];
+		}*/
 
 		return view("home.php");	
 	}
@@ -43,10 +58,18 @@ class Home_controller extends Controller
 	}
 
 	public function dados_usuario(){
+		
 		if(!$this->permissao()){
 			return view("erro.php");
 		}
-		$retorno = $this->model->get_usuario_id($_SESSION["id_usuario"]);
+		
+		$id_usuario = $_SESSION["id_usuario"];
+	
+		if(isset($_SESSION["id_usuario_comum"])){
+			$id_usuario = $_SESSION["id_usuario_comum"];
+		}
+
+		$retorno = $this->model->get_usuario_id($id_usuario);
 
 		if($retorno == null){
 			return view("erro.php");
@@ -56,7 +79,7 @@ class Home_controller extends Controller
 		echo json_encode(["cpf" => $retorno[0]->cpf, "email" => $retorno[0]->email, "nome" => $retorno[0]->nome, "grau_acesso" => $retorno[0]->grau_acesso]);
 	}
 
-	public function valida_cpf($cpf)
+	protected function valida_cpf($cpf)
     {
 
         // Extrai somente os números
@@ -85,7 +108,7 @@ class Home_controller extends Controller
         return true;
     }
 
-    public function validar_dados($id)
+    protected function validar_dados($id)
     {
 
         //Deve ter uma maiscula, minuscula, números e um caracter especial.
@@ -154,13 +177,19 @@ class Home_controller extends Controller
         return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_cpf" => $erro_cpf, "erro_email" => $erro_email, "erro_senha" => $erro_senha];
     }
 
-    public function alterar($id = null)
+    public function alterar()
     {
-		if($id && $_SESSION["grau_acesso"] != "A"){
+
+		if(!$this->permissao()){
 			return view("erro.php");
-		} else if($id && $_SESSION["grau_acesso"] == "A"){
+		}
+
+		if($_SESSION["grau_acesso"] != "A"){
+			return view("erro.php");
+		} else if($_SESSION["grau_acesso"] == "A" && isset($_SESSION["id_usuario_comum"])){
+			$id = $_SESSION["id_usuario_comum"];
 			$retorno = $this->validar_dados($id);
-		} else if(!$id && $_SESSION["grau_acesso"] == "U" || !$id && $_SESSION["grau_acesso"] == "A"){
+		} else if($_SESSION["grau_acesso"] == "U" || $_SESSION["grau_acesso"] == "A" && !isset($_SESSION["id_usuario_comum"])){
 			$id = $_SESSION["id_usuario"];
 			$retorno = $this->validar_dados($id);
 		}
@@ -174,9 +203,6 @@ class Home_controller extends Controller
 		$cpf = preg_replace('/[^0-9]/is', '', $_POST["cpf"]);
 		$email = $_POST["email"];
 		$senha = $_POST["senha"];
-
-		//$this->model->alterar($id, $nome, $cpf, $email);
-
 		
 		if(!empty($senha)){
 			$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);

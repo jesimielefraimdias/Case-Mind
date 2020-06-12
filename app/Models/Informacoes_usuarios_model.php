@@ -20,6 +20,7 @@ class Informacoes_usuarios_model extends Model
         $builder = $this->db->table("usuario");
         $builder->select("id_usuario, nome, cpf, email, grau_acesso");
         $builder->where("id_usuario !=", $id);
+        $builder->orderBy("id_usuario");
         $query = $builder->get();
 
         return $query->getResult();
