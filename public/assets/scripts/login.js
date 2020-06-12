@@ -21,7 +21,8 @@ $(document).ready(() => {
                 $("#erro_senha").html(sucesso.erro_senha);
                 $("#erro_login").html(sucesso.erro_login);
                 if (sucesso.erro == "n") {
-                    $(location).attr("href", base_url + "\\Home_controller");
+                    if(sucesso.grau_acesso == "U") $(location).attr("href", base_url + "\\Home_controller");
+                    else if(sucesso.grau_acesso == "A") $(location).attr("href", base_url + "\\Informacoes_usuarios_controller");
                 }
             },
             

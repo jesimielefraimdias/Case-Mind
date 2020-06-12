@@ -97,11 +97,12 @@ class Login_controller extends Controller
             return;
         }
 
-        echo json_encode($retorno);
-
         session_start();
         $_SESSION["id_usuario"] = $dados[0]->id_usuario;
         $_SESSION["grau_acesso"] = $dados[0]->grau_acesso;
+
+        $retorno["grau_acesso"] = $dados[0]->grau_acesso;
+        echo json_encode($retorno);
     }
 }
 

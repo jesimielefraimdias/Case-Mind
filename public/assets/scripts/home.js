@@ -24,11 +24,10 @@ $(document).ready(() => {
     });
 
 
-    $("#sair").on("click", event => {
+    $("#sair").on("click", () => {
         $.get(base_url + "\\Home_controller\\sair", () => {
             $(location).attr("href", base_url + "\\Login_controller");
         });
-    
     });
 
     $("#alterar").on("click", event => {
