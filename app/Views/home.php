@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="row col-12 justify-content-around">
-                        <input class="col-4 btn btn-large btn-info" type="submit" id="home" value="Salvar">
+                        <input class="col-4 btn btn-large btn-info" type="submit" id="alterar" value="Alterar">
                     </div>
                 </form>
             </div>

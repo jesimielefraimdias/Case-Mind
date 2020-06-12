@@ -31,7 +31,7 @@ $(document).ready(() => {
     
     });
 
-    $("#salvar").on("click", event => {
+    $("#alterar").on("click", event => {
         event.preventDefault();
 
         let form = $("form").serialize();
@@ -49,10 +49,15 @@ $(document).ready(() => {
                 $("#erro_cpf").html(sucesso.erro_cpf);
                 $("#erro_email").html(sucesso.erro_email);
                 $("#erro_senha").html(sucesso.erro_senha);
+               
 
                 if (sucesso.erro == "n") {
                     alert("Dados alterados com sucesso!");
-                    //$(location).attr("href", base_url + "\\Home_controller");
+                   $(location).attr("href", base_url + "\\Home_controller");
+                   $("#nome").val(sucesso.nome);
+                   $("#cpf").val(sucesso.cpf);
+                   $("#email").val(sucesso.email);
+     
                 }
             },
             error: erro => {

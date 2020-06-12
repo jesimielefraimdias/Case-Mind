@@ -85,7 +85,7 @@ class Home_controller extends Controller
         return true;
     }
 
-    public function validar_dados()
+    public function validar_dados($id)
     {
 
         //Deve ter uma maiscula, minuscula, números e um caracter especial.
@@ -106,7 +106,7 @@ class Home_controller extends Controller
             $erro_cpf = "Digite um cpf válido!";
             $erro = "s";
         } else if (($retorno = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"]))) != null) {
-			if($retorno[0]->id_usuario != $_SESSION["retorno_id"]){
+			if($retorno[0]->id_usuario != $id){
 				$erro_cpf = "Cpf já cadastrado!";
 				$erro = "s";
 			}
@@ -115,39 +115,41 @@ class Home_controller extends Controller
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $erro_email = "Digite um email válido!";
             $erro = "s";
-        } else if ($this->model->get_usuario_email($_POST["email"]) != null) {
-			if($retorno[0]->id_usuario != $_SESSION["retorno_id"]){
+        } else if (($retorno = $this->model->get_usuario_email($_POST["email"])) != null) {
+			if($retorno[0]->id_usuario != $id){
 				$erro_email = "Email já cadastrado!";
             	$erro = "s";
 			}
-        }
+		}
+		
+		if(!empty($_POST["senha"])){
+			if (!$uppercase || !$lowercase || !$number || !$specialChars || (strlen($_POST["senha"]) < 8)) {
+				$erro_senha = "";
+			
+				if (!$uppercase) {
+					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: maiúscula";
+					else $erro_senha .= ", maiúscula";
+				}
+				if (!$lowercase) {
+					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: minúscula";
+					else $erro_senha .= ", minúscula";
+				}
+				if (!$number) {
+					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: número";
+					else $erro_senha .= ", número";
+				}
+				if (!$specialChars) {
+					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: caracter especial";
+					else $erro_senha .= ", caracter especial";
+				}
+				if (strlen($_POST["senha"]) < 8) {
+					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: 8 caracteres";
+					else $erro_senha .= ", 8 caracteres";
+				}
 
-        if (!empty($_POST["senha"]) && (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST["senha"]) < 8)) {
-            $erro_senha = "";
-		   
-			if (!$uppercase) {
-                if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: maiúscula";
-                else $erro_senha .= ", maiúscula";
-            }
-            if (!$lowercase) {
-                if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: minúscula";
-                else $erro_senha .= ", minúscula";
-            }
-            if (!$number) {
-                if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: número";
-                else $erro_senha .= ", número";
-            }
-            if (!$specialChars) {
-                if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: caracter especial";
-                else $erro_senha .= ", caracter especial";
-            }
-            if (strlen($_POST["senha"]) < 8) {
-                if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: 8 caracteres";
-                else $erro_senha .= ", 8 caracteres";
-            }
-
-            $erro = "s";
-        }
+				$erro = "s";
+			}
+		}
 
         return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_cpf" => $erro_cpf, "erro_email" => $erro_email, "erro_senha" => $erro_senha];
     }
@@ -173,6 +175,9 @@ class Home_controller extends Controller
 		$email = $_POST["email"];
 		$senha = $_POST["senha"];
 
+		//$this->model->alterar($id, $nome, $cpf, $email);
+
+		
 		if(!empty($senha)){
 			$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
 			$this->model->alterar($id, $nome, $cpf, $email, $senha);
