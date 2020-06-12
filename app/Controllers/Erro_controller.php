@@ -6,7 +6,7 @@ class Erro_controller extends Controller
 {
 	public function index()
 	{
-    
+		return view("erro.php");
     }
 
 	//--------------------------------------------------------------------
