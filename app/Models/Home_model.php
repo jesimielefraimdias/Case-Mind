@@ -57,15 +57,12 @@ class Home_model extends Model
     public function get_usuario_id($id)
     {
         $data = [
-            "id" => $id
+            "id_usuario" => $id
         ];
 
-        $builder = $this->db->table("usuario")->where($data);
-        if($builder->countAllResults() == 1){
-            $query = $builder->get();
-            return $query->getRow();
+        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
+            return $query->getResult()[0];
         }
-
         return null;
     }
 
@@ -75,12 +72,9 @@ class Home_model extends Model
             "cpf" => $cpf
         ];
 
-        $builder = $this->db->table("usuario")->where($data);
-        if($builder->countAllResults() == 1){
-            $query = $builder->get();
-            return $query->getRow();
+        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
+            return $query->getResult()[0];
         }
-
         return null;
     }
 
@@ -90,12 +84,9 @@ class Home_model extends Model
             "email" => $email
         ];
 
-        $builder = $this->db->table("usuario")->where($data);
-        if($builder->countAllResults() == 1){
-            $query = $builder->get();
-            return $query->getRow();
+        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
+            return $query->getResult()[0];
         }
-
         return null;    
     }
 }

@@ -79,6 +79,7 @@ $(document).ready(() => {
                     $("#erro_email").html(sucesso.erro_email);
                     $("#erro_senha").html(sucesso.erro_senha);
                     $("#erro_imagem").html(sucesso.erro_imagem);
+                    $("#erro_inserir").html(sucesso.erro_inserir);
 
                     if (sucesso.erro == false) {
                         alert("Obrigado por se cadastrar!");

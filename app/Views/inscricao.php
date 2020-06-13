@@ -34,16 +34,15 @@
 
     <style>
         #imagem_perfil_previa {
-            display: block;
-            width: 80%;
-            height: 70%;
-            border-radius: 50%;
+            height: 150px;
+            width: 150px;
             margin: 10px auto;
+            border-radius: 50px;
         }
 
         #imagem_perfil {
             width: 50%;
-            border: 1px solid red;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -76,9 +75,9 @@
                     <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
 
 
-                        <div class="col-3 form-group text-center">
-                            <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="mt-3">
-                            <input class="btn btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class = "btn">
+                        <div class="col-3 form-group text-center align-self-center">
+                            <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="img-fluid .img-thumbnail">
+                            <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class = "btn">
                             <span class="text-danger" id="erro_imagem"></span>
                         </div>
 
@@ -110,7 +109,7 @@
 
                         <div class="row col-12 justify-content-around">
                             <input class="col-6 btn btn-large btn-info" type="submit" id="inscrever_se" value="Salvar">
-                            <div class="col-12 text-danger text-center" id="erro_upload"></div>
+                            <div class="col-12 text-danger text-center" id="erro_inserir"></div>
                         </div>
                     </form>
                 </div>

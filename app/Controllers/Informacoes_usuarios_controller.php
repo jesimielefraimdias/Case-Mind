@@ -35,6 +35,7 @@ class Informacoes_usuarios_controller extends Controller
 		//echo json_encode($_GET);
 
 		echo json_encode($retorno);
+		
 	}
 
 	public function ativarordesativar(){

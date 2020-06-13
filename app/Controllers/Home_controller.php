@@ -16,7 +16,7 @@ class Home_controller extends Controller
 		$this->msg = [
 			"erro" => false, "erro_nome" => "", "erro_cpf" => "",
 			"erro_email" => "", "erro_senha" => "", "erro_imagem" => "",
-			"erro_upload" => false
+			"erro_alterar" => "", "erro_upload" => false
 		];
 
 		$this->model = new Home_model();
@@ -72,13 +72,16 @@ class Home_controller extends Controller
 			$id_usuario = $_SESSION["id_usuario_comum"];
 		}
 
-		$retorno = $this->model->get_usuario_id($id_usuario);
+		$retorno = $this->model->get_usuario_id(1);
 
 		if ($retorno == null) {
 			return view("erro.php");
 		}
+		echo json_encode($retorno);
 
-		echo json_encode(["cpf" => $retorno->cpf, "email" => $retorno->email, "nome" => $retorno->nome, "grau_acesso" => $retorno->grau_acesso]);
+
+		return;
+		//		echo json_encode(["cpf" => $retorno->cpf, "email" => $retorno->email, "nome" => $retorno->nome, "grau_acesso" => $retorno->grau_acesso]);
 	}
 
 	protected function valida_cpf($cpf)
@@ -209,19 +212,17 @@ class Home_controller extends Controller
 			return view("erro.php");
 		} else if ($_SESSION["grau_acesso"] == "A" && isset($_SESSION["id_usuario_comum"])) {
 			$id = $_SESSION["id_usuario_comum"];
-			$this->validar_dados($id);
 		} else if ($_SESSION["grau_acesso"] == "U" || $_SESSION["grau_acesso"] == "A" && !isset($_SESSION["id_usuario_comum"])) {
 			$id = $_SESSION["id_usuario"];
-			$this->validar_dados($id);
+		}
+		$this->validar_dados($id);
+
+		if (isset($_FILES) && isset($_FILES["imagem_perfil"])) {
+			$imagem_perfil = $_FILES["imagem_perfil"];
+			$this->valida_imagem();
 		}
 
-		if ($this->msg["erro"] == true) {
-			echo json_encode($this->msg);
-			return;
-		}
-
-
-		if (isset($_FILES) && isset($_FILES["imagem_perfil"]) && !$this->valida_imagem()) {
+		if($this->msg["erro"]){
 			echo json_encode($this->msg);
 			return;
 		}
@@ -230,13 +231,12 @@ class Home_controller extends Controller
 		$cpf = preg_replace('/[^0-9]/is', '', $_POST["cpf"]);
 		$email = $_POST["email"];
 		$senha = $_POST["senha"];
-		$imagem_perfil = $_FILES["imagem_perfil"];
 
-		if (!empty($senha)) $senha = null;
+		if (empty($senha)) $senha = null;
 		else $senha = password_hash($senha, PASSWORD_DEFAULT);
 
 		if ($this->model->alterar($id, $nome, $cpf, $email, $senha)) {
-			if($this->model->inserir_imagem($id, $imagem_perfil)){
+			if (isset($imagem_perfil) && !$this->model->inserir_imagem($id, $imagem_perfil)) {
 				$this->msg["erro_upload"] = true;
 			}
 		} else {

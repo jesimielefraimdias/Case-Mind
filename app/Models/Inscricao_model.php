@@ -49,13 +49,12 @@ class Inscricao_model extends Model
             "cpf" => $cpf
         ];
 
-        $builder = $this->db->table("usuario")->where($data);
-        if($builder->countAllResults() == 1){
-            $query = $builder->get();
-            return $query->getRow();
+        $query = $this->db->table("usuario")->where($data);
+        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
+            return $query->getResult()[0];
         }
-
         return null;
+
     }
 
     public function get_usuario_email($email)
@@ -64,13 +63,12 @@ class Inscricao_model extends Model
             "email" => $email
         ];
 
-        $builder = $this->db->table("usuario")->where($data);
-        if($builder->countAllResults() == 1){
-            $query = $builder->get();
-            return $query->getRow();
+        $query = $this->db->table("usuario")->where($data);
+        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
+            return $query->getResult()[0];
         }
+        return null;
 
-        return null;    
     }
 }
 

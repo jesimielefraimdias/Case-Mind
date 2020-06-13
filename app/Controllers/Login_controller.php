@@ -12,8 +12,8 @@ class Login_controller extends Controller
 
     public function __construct()
     {
-        $this->msg = ["erro" => ["erro" => false, "erro_emailorcpf" => null, "erro_senha" => null, "erro_login" => null], 
-                    "data" => ["grau_acesso" => null]];
+        $this->msg = ["erro" => ["erro" => false, "erro_emailorcpf" => "", "erro_senha" => "", "erro_login" => ""], 
+                    "data" => ["grau_acesso" => ""]];
         $this->model = new Login_model();
     }
 
@@ -74,11 +74,10 @@ class Login_controller extends Controller
             return;
         }
         
-        
         if (($dados = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["emailorcpf"]))) == null) {
             if (($dados = $this->model->get_usuario_email($_POST["emailorcpf"])) == null) {
                 $this->msg["erro"]["erro_login"] = "Verifique os dados digitados!";
-                $retorno["erro"]["erro"] = true;
+                $this->msg["erro"]["erro"] = true;
                 echo json_encode($this->msg);
                 return;
             }
@@ -99,8 +98,8 @@ class Login_controller extends Controller
         session_start();
         $_SESSION["id_usuario"] = $dados->id_usuario;
         $_SESSION["grau_acesso"] = $dados->grau_acesso;
-
         $this->msg["data"]["grau_acesso"] = $dados->grau_acesso;
+ 
         echo json_encode($this->msg);
     }
 }

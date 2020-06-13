@@ -103,7 +103,7 @@ class Inscricao_controller extends Controller
                 else $this->msg["erro_senha"] .= ", caracter especial";
             }
             if (strlen($_POST["senha"]) < 8) {
-                if (strlen($this->msg["erro_senha"]) == 0) $erro_senha = "Precisa ter pelo menos: 8 caracteres";
+                if (strlen($this->msg["erro_senha"]) == 0) $this->msg["erro_senha"] = "Precisa ter pelo menos: 8 caracteres";
                 else $this->msg["erro_senha"] .= ", 8 caracteres";
             }
 
@@ -122,7 +122,7 @@ class Inscricao_controller extends Controller
         $imagem_perfil = $_FILES["imagem_perfil"];
         $tipo = explode("/", $imagem_perfil["type"]);
         
-        if($imagem_perfil["size"] > 500000){
+        if($imagem_perfil["size"] > 50000){
             $this->msg["erro_imagem"] = "A imagem é muito grande";
             $this->msg["erro"] = true;
             return;
@@ -157,10 +157,10 @@ class Inscricao_controller extends Controller
                 $this->msg["erro_upload"] = true;
             }
         } else {
-            $this->erro_msg["erro_inserir"] = "Erro ao cadastrar usuário, tente mais tarde!";
+            $this->msg["erro_inserir"] = "Erro ao cadastrar usuário, tente mais tarde!";
             $this->msg["erro"] = true;
         }
         
-        echo json_encode($this->erro_msg);
+        echo json_encode($this->msg);
     }
 }

@@ -30,7 +30,21 @@
     <!-- fontawesome CSS-->
     <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
 
+    <style>
+        #imagem_perfil_previa {
+            display: block;
+            width: 80%;
+            height: 70%;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+
+        #imagem_perfil {
+            width: 50%;
+        }
+    </style>
     <title>Home do usuário</title>
+
 </head>
 
 <body>
@@ -57,11 +71,11 @@
                     <span id="usuario"></span>
                 </div>
 
-                <form class="card-body row justify-content-around">
+                <form id="form_alterar" class="card-body row justify-content-around">
                     <div class="col-3 form-group text-center">
                         <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="mt-3">
                         <input class="btn btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
-                        <span class="text-danger" id="erro_imagem_perfil"></span>
+                        <span class="text-danger" id="erro_imagem"></span>
                     </div>
 
                     <div class="col-9">
@@ -92,7 +106,8 @@
                     </div>
 
                     <div class="row col-12 justify-content-around">
-                        <input class="col-4 btn btn-large btn-info" type="submit" id="alterar" value="Alterar">
+                        <input class="col-6 btn btn-large btn-info" type="submit" id="inscrever_se" value="Salvar">
+                        <div class="col-12 text-danger text-center" id="erro_alterar"></div>
                     </div>
                 </form>
             </div>
