@@ -64,14 +64,14 @@
 
                     <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
 
-                        <div class="col-6 form-group">
+                        <div class="col-12 form-group">
                             <label for="imagem_perfil">Imagem perfil</label>
-                            <input class="form-control" type="file" id="imagem_perfil" name="imagem_perfil">
+                            <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" class="d-block align-top">
+                            <input class="form-control" type="file" id="imagem_perfil" name="imagem_perfil" style="display:none;">
                             <span class="text-danger" id="erro_imagem_perfil"></span>
                         </div>
 
-
-                        <div class="col-6 form-group">
+                        <div class="col-12 form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
                             <span class="text-danger" id="erro_nome"></span>

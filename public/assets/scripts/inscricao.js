@@ -2,7 +2,11 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
-
+    
+    $("#imagem_perfil_previa").on("click", event => {
+        
+    });
+    
 //  $("#inscrever_se").on("click", event => {
     $("#form_inscricao").submit( function(event){
         event.preventDefault();
