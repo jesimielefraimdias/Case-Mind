@@ -5,7 +5,12 @@ $(document).ready(() => {
     
     let base_url = $("#base_url").val();
     let change = false;
-    
+
+    $("#imagem_perfil").change(function () {
+        change = true;
+        readURL(this);
+    });
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -18,10 +23,7 @@ $(document).ready(() => {
         }
     }
 
-    $("#imagem_perfil").change(function () {
-        change = true;
-        readURL(this);
-    });
+
 
     //  $("#inscrever_se").on("click", event => {
     $("#form_inscricao").submit(function (event) {
@@ -40,14 +42,16 @@ $(document).ready(() => {
                 dataType: "json",
                 success: sucesso => {
 
-                    console.log("Sucesso=" + JSON.stringify(sucesso));
+                    console.log("Sucesso :" + JSON.stringify(sucesso));
+                    console.log("Sucesso :" +sucesso);
+                    
                     $("#erro_nome").html(sucesso.erro_nome);
                     $("#erro_cpf").html(sucesso.erro_cpf);
                     $("#erro_email").html(sucesso.erro_email);
                     $("#erro_senha").html(sucesso.erro_senha);
                     $("#erro_imagem").html(sucesso.erro_imagem);
                     
-
+                    
                     if (sucesso.erro == false) {
                         alert("Obrigado por se cadastrar!");
                         $(location).attr("href", base_url + "\\Login_controller");

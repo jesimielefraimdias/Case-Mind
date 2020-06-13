@@ -23,10 +23,7 @@ class Inscricao_model extends Model
             "senha" => $senha
         ];
 
-        
-        if(!$this->db->table("usuario")->insert($data)){
-            return null;
-        }
+        $this->db->table("usuario")->insert($data);
 
         return $this->get_usuario_cpf($cpf);
     }
@@ -49,7 +46,6 @@ class Inscricao_model extends Model
             "cpf" => $cpf
         ];
 
-        $query = $this->db->table("usuario")->where($data);
         if(($query = $this->db->table("usuario")->getWhere($data)) != null){
             return $query->getResult()[0];
         }
@@ -63,7 +59,6 @@ class Inscricao_model extends Model
             "email" => $email
         ];
 
-        $query = $this->db->table("usuario")->where($data);
         if(($query = $this->db->table("usuario")->getWhere($data)) != null){
             return $query->getResult()[0];
         }
