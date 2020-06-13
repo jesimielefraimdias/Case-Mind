@@ -60,6 +60,7 @@ class Inscricao_controller extends Controller
         $erro = "n";
         $erro_nome = $erro_cpf = $erro_email = $erro_senha = "";
 
+        
         if (!preg_match("/^[a-zA-Z ]*$/", $_POST["nome"]) || empty($_POST["nome"])) {
             $erro_nome = "Digite um nome válido!";
             $erro = "s";
@@ -110,18 +111,45 @@ class Inscricao_controller extends Controller
         return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_cpf" => $erro_cpf, "erro_email" => $erro_email, "erro_senha" => $erro_senha];
     }
 
+    public function valida_imagem(){
+
+        if(!isset($_FILES["imagem_perfil"])){
+            return false;
+        }
+
+        $imagem_perfil = $_FILES["imagem_perfil"];
+        $tipo = explode("/",$imagem_perfil["type"]);
+        
+        if($imagem_perfil["size"] > 500000){
+            return ["erro" => "s", "erro_imagem" => "A imagem é muito grande!"];
+        }
+
+        if($tipo[1] != "png" && $tipo[1] != "jpeg"){
+            return ["erro" => "s", "erro_imagem" => "Tipo não válido!"];    
+        }
+
+        return ["erro" => "n", "erro_imagem" => ""];
+    }
+
     public function cadastro()
     {
 
-
+//        echo json_encode($_FILES);
+    
         $retorno = $this->validar_dados();
+        $retorno1 = $this->valida_imagem();
 
-        if ($retorno["erro"] == 's') {
+        if ($retorno["erro"] == 's' || $retorno1["erro"] == "s") {
             echo json_encode($retorno);
             return;
         }
 
-        $this->model->inserir($_POST["nome"], preg_replace('/[^0-9]/is', '', $_POST["cpf"]), $_POST["email"], password_hash($_POST["senha"], PASSWORD_DEFAULT));
+        $nome = $_POST["nome"];
+        $cpf = preg_replace('/[^0-9]/is', '', $_POST["cpf"]);
+        $email = $_POST["email"];
+        $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
+        $imagem_perfil = $_FILES["imagem_perfil"];
+        $this->model->inserir($nome, $cpf, $email, $senha, $imagem_perfil);
 
         echo json_encode($retorno);
     }

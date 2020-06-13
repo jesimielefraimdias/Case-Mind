@@ -62,8 +62,16 @@
                         Inscrever-se
                     </div>
 
-                    <form class="card-body row justify-content-around">
-                        <div class="col-12 form-group">
+                    <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
+
+                        <div class="col-6 form-group">
+                            <label for="imagem_perfil">Imagem perfil</label>
+                            <input class="form-control" type="file" id="imagem_perfil" name="imagem_perfil">
+                            <span class="text-danger" id="erro_imagem_perfil"></span>
+                        </div>
+
+
+                        <div class="col-6 form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
                             <span class="text-danger" id="erro_nome"></span>
