@@ -20,9 +20,13 @@ class Login_model extends Model
             "cpf" => $cpf
         ];
 
-        $query = $this->db->table("usuario")->getWhere($data);
+        $builder = $this->db->table("usuario")->where($data);
+        if($builder->countAllResults() == 1){
+            $query = $builder->get();
+            return $query->getRow();
+        }
 
-        return $query->getResult();
+        return null;
     }
 
     public function get_usuario_email($email)
@@ -31,10 +35,12 @@ class Login_model extends Model
             "email" => $email
         ];
 
-        $query = $this->db->table("usuario")->getWhere($data);
+        $builder = $this->db->table("usuario")->where($data);
+        if($builder->countAllResults() == 1){
+            $query = $builder->get();
+            return $query->getRow();
+        }
 
-        return $query->getResult();
+        return null;    
     }
 }
-
-?>

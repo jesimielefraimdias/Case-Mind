@@ -1,7 +1,27 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
+    
     let base_url = $("#base_url").val();
+    let change = false;
+    
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imagem_perfil_previa').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]); // convert to base64 string
+        }
+    }
+
+    $("#imagem_perfil").change(function () {
+        change = true;
+        readURL(this);
+    });
+
     
     $.ajax({
         type: "GET",

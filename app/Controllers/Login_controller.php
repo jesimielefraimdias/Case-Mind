@@ -7,10 +7,13 @@ use App\Models\Login_model;
 
 class Login_controller extends Controller
 {
+    private $msg;
     protected $model;
 
     public function __construct()
     {
+        $this->msg = ["erro" => ["erro" => false, "erro_emailorcpf" => null, "erro_senha" => null, "erro_login" => null], 
+                    "data" => ["grau_acesso" => null]];
         $this->model = new Login_model();
     }
 
@@ -50,59 +53,55 @@ class Login_controller extends Controller
 
     private function validar_dados()
     {
-        $erro = "n";
-        $erro_emailorcpf = $erro_senha = "";
-
         if (!filter_var($_POST["emailorcpf"], FILTER_VALIDATE_EMAIL) && !$this->valida_cpf($_POST["emailorcpf"])) {
-            $erro_emailorcpf = "Digite um email/cpf válido";
-            $erro = "s";
+            $this->msg["erro"]["erro_emailorcpf"] = "Digite um email/cpf válido";
+            $this->msg["erro"]["erro"] = true;
         }
 
         if (empty($_POST["senha"])) {
-            $erro_senha = "Campo da senha está vázio!";
-            $erro = "s";
+            $this->msg["erro"]["erro_senha"] = "Campo da senha está vázio!";
+            $this->msg["erro"]["erro"] = true;
         }
-
-        return ["erro" => $erro, "erro_emailorcpf" => $erro_emailorcpf, "erro_senha" => $erro_senha, "erro_login" => ""];
     }
 
     public function login()
     {
 
-        $retorno = $this->validar_dados();
+        $this->validar_dados();
 
-        if ($retorno["erro"] == "s") {
-            echo json_encode($retorno);
+        if ($this->msg["erro"]["erro"] == true) {
+            echo json_encode($this->msg);
             return;
         }
-
+        
+        
         if (($dados = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["emailorcpf"]))) == null) {
             if (($dados = $this->model->get_usuario_email($_POST["emailorcpf"])) == null) {
-                $retorno["erro_login"] = "Verifique os dados digitados!";
-                $retorno["erro"] = "s";
-                echo json_encode($retorno);
+                $this->msg["erro"]["erro_login"] = "Verifique os dados digitados!";
+                $retorno["erro"]["erro"] = true;
+                echo json_encode($this->msg);
                 return;
             }
         }
 
-        if (!password_verify($_POST["senha"], $dados[0]->senha)) {
-            $retorno["erro_login"] = "Senha incorreta!";
-            $retorno["erro"] = "s";
-            echo json_encode($retorno);
+        if (!password_verify($_POST["senha"], $dados->senha)) {
+            $this->msg["erro"]["erro_login"] = "Senha incorreta!";
+            $this->msg["erro"]["erro"] = true;
+            echo json_encode($this->msg);
             return;
-        } else if($dados[0]->grau_acesso == "I"){
-            $retorno["erro_login"] = "Usuário inativo!";
-            $retorno["erro"] = "s";
-            echo json_encode($retorno);
+        } else if($dados->grau_acesso == "I"){
+            $this->msg["erro"]["erro_login"] = "Usuário inativo!";
+            $this->msg["erro"]["erro"] = true;
+            echo json_encode($this->msg);
             return;
         }
 
         session_start();
-        $_SESSION["id_usuario"] = $dados[0]->id_usuario;
-        $_SESSION["grau_acesso"] = $dados[0]->grau_acesso;
+        $_SESSION["id_usuario"] = $dados->id_usuario;
+        $_SESSION["grau_acesso"] = $dados->grau_acesso;
 
-        $retorno["grau_acesso"] = $dados[0]->grau_acesso;
-        echo json_encode($retorno);
+        $this->msg["data"]["grau_acesso"] = $dados->grau_acesso;
+        echo json_encode($this->msg);
     }
 }
 

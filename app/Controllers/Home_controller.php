@@ -7,213 +7,245 @@ use App\Models\Home_model;
 
 class Home_controller extends Controller
 {
-	protected $id_usuario_comum;
 	protected $model;
+	private $msg;
 
-	public function __construct(){
-		
-		session_start();
-/*		if(isset($_GET["id_usuario_comum"])){
-			$this->id_usuario_comum = $_GET["id_usuario_comum"];
-		} else {
-			$this->id_usuario_comum = "Não chegou nada parça";
-		}*/
+	public function __construct()
+	{
+
+		$this->msg = [
+			"erro" => false, "erro_nome" => "", "erro_cpf" => "",
+			"erro_email" => "", "erro_senha" => "", "erro_imagem" => "",
+			"erro_upload" => false
+		];
+
 		$this->model = new Home_model();
-		
+
+		session_start();
 	}
 
-	public function setar_id(){
-		$_SESSION["id_usuario_comum"] = $_GET["id_usuario_comum"];
-		echo json_encode("Sucesso");
+	public function setar_id()
+	{
+
+		if (isset($_GET["id_usuario_comum"])) {
+			$_SESSION["id_usuario_comum"] = $_GET["id_usuario_comum"];
+			echo json_encode("Sucesso");
+		}
 	}
 
 	public function permissao()
 	{
-		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I"){
+		if (isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I") {
 			return true;
 		}
-
 		return false;
 	}
 
 	public function index()
 	{
-		if(!$this->permissao()){
+		if (!$this->permissao()) {
 			return view("erro.php");
 		}
-/*		if(isset($_GET["id_usuario_comum"])){
-			$this->id_usuario_comum = $_GET["id_usuario_comum"];
-		}*/
 
-		return view("home.php");	
+		return view("home.php");
 	}
 
 	public function sair()
 	{
-		if(!$this->permissao()){
+		if (!$this->permissao()) {
 			return view("erro.php");
 		}
-		
+
 		session_destroy();
 	}
 
-	public function dados_usuario(){
-		
-		if(!$this->permissao()){
+	public function dados_usuario()
+	{
+
+		if (!$this->permissao()) {
 			return view("erro.php");
 		}
-		
+
 		$id_usuario = $_SESSION["id_usuario"];
-	
-		if(isset($_SESSION["id_usuario_comum"])){
+
+		if (isset($_SESSION["id_usuario_comum"])) {
 			$id_usuario = $_SESSION["id_usuario_comum"];
 		}
 
 		$retorno = $this->model->get_usuario_id($id_usuario);
 
-		if($retorno == null){
+		if ($retorno == null) {
 			return view("erro.php");
 		}
 
-
-		echo json_encode(["cpf" => $retorno[0]->cpf, "email" => $retorno[0]->email, "nome" => $retorno[0]->nome, "grau_acesso" => $retorno[0]->grau_acesso]);
+		echo json_encode(["cpf" => $retorno->cpf, "email" => $retorno->email, "nome" => $retorno->nome, "grau_acesso" => $retorno->grau_acesso]);
 	}
 
 	protected function valida_cpf($cpf)
-    {
+	{
 
-        // Extrai somente os números
-        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+		// Extrai somente os números
+		$cpf = preg_replace('/[^0-9]/is', '', $cpf);
 
-        // Verifica se foi informado todos os digitos corretamente
-        if (strlen($cpf) != 11) {
-            return false;
-        }
+		// Verifica se foi informado todos os digitos corretamente
+		if (strlen($cpf) != 11) {
+			return false;
+		}
 
-        // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
-        if (preg_match('/(\d)\1{10}/', $cpf)) {
-            return false;
-        }
+		// Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
+		if (preg_match('/(\d)\1{10}/', $cpf)) {
+			return false;
+		}
 
-        // Faz o calculo para validar o CPF
-        for ($t = 9; $t < 11; $t++) {
-            for ($d = 0, $c = 0; $c < $t; $c++) {
-                $d += $cpf[$c] * (($t + 1) - $c);
-            }
-            $d = ((10 * $d) % 11) % 10;
-            if ($cpf[$c] != $d) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    protected function validar_dados($id)
-    {
-
-        //Deve ter uma maiscula, minuscula, números e um caracter especial.
-        $uppercase = preg_match('@[A-Z]@', $_POST["senha"]);
-        $lowercase = preg_match('@[a-z]@', $_POST["senha"]);
-        $number    = preg_match('@[0-9]@', $_POST["senha"]);
-        $specialChars = preg_match('@[^\w]@', $_POST["senha"]);
-
-        $erro = "n";
-        $erro_nome = $erro_cpf = $erro_email = $erro_senha = "";
-
-        if (!preg_match("/^[a-zA-Z ]*$/", $_POST["nome"]) || empty($_POST["nome"])) {
-            $erro_nome = "Digite um nome válido!";
-            $erro = "s";
-        }
-
-        if (!$this->valida_cpf($_POST["cpf"])) {
-            $erro_cpf = "Digite um cpf válido!";
-            $erro = "s";
-        } else if (($retorno = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"]))) != null) {
-			if($retorno[0]->id_usuario != $id){
-				$erro_cpf = "Cpf já cadastrado!";
-				$erro = "s";
+		// Faz o calculo para validar o CPF
+		for ($t = 9; $t < 11; $t++) {
+			for ($d = 0, $c = 0; $c < $t; $c++) {
+				$d += $cpf[$c] * (($t + 1) - $c);
 			}
-        }
-
-        if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-            $erro_email = "Digite um email válido!";
-            $erro = "s";
-        } else if (($retorno = $this->model->get_usuario_email($_POST["email"])) != null) {
-			if($retorno[0]->id_usuario != $id){
-				$erro_email = "Email já cadastrado!";
-            	$erro = "s";
+			$d = ((10 * $d) % 11) % 10;
+			if ($cpf[$c] != $d) {
+				return false;
 			}
 		}
-		
-		if(!empty($_POST["senha"])){
-			if (!$uppercase || !$lowercase || !$number || !$specialChars || (strlen($_POST["senha"]) < 8)) {
-				$erro_senha = "";
-			
+		return true;
+	}
+
+	protected function validar_dados($id)
+	{
+
+		//Deve ter uma maiscula, minuscula, números e um caracter especial.
+		$uppercase = preg_match('@[A-Z]@', $_POST["senha"]);
+		$lowercase = preg_match('@[a-z]@', $_POST["senha"]);
+		$number    = preg_match('@[0-9]@', $_POST["senha"]);
+		$specialChars = preg_match('@[^\w]@', $_POST["senha"]);
+
+		if (!preg_match("/^[a-zA-Z ]*$/", $_POST["nome"]) || empty($_POST["nome"])) {
+			$this->msg["erro_nome"] = "Digite um nome válido!";
+			$this->msg["erro"] = true;
+		}
+
+		if (!$this->valida_cpf($_POST["cpf"])) {
+			$this->msg["erro_cpf"] = "Digite um cpf válido!";
+			$this->msg["erro"] = true;
+		} else if (($retorno = $this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"]))) != null) {
+			if ($retorno->id_usuario != $id) {
+				$this->msg["erro_cpf"] = "Cpf já cadastrado!";
+				$this->msg["erro"] = true;
+			}
+		}
+
+		if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+			$this->msg["erro_email"] = "Digite um email válido!";
+			$this->msg["erro"] = true;
+		} else if (($retorno = $this->model->get_usuario_email($_POST["email"])) != null) {
+			if ($retorno->id_usuario != $id) {
+				$this->msg["erro_email"] = "Email já cadastrado!";
+				$this->msg["erro"] = true;
+			}
+		}
+
+		if (!empty($_POST["senha"])) {
+			if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST["senha"]) < 8) {
+
+				$this->msg["erro_senha"] = "";
 				if (!$uppercase) {
-					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: maiúscula";
-					else $erro_senha .= ", maiúscula";
+					if (strlen($this->msg["erro_senha"]) == 0) $this->msg["erro_senha"] = "Precisa ter pelo menos uma: maiúscula";
+					else $this->msg["erro_senha"] .= ", maiúscula";
 				}
 				if (!$lowercase) {
-					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos uma: minúscula";
-					else $erro_senha .= ", minúscula";
+					if (strlen($this->msg["erro_senha"]) == 0) $this->msg["erro_senha"] = "Precisa ter pelo menos uma: minúscula";
+					else $this->msg["erro_senha"] .= ", minúscula";
 				}
 				if (!$number) {
-					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: número";
-					else $erro_senha .= ", número";
+					if (strlen($this->msg["erro_senha"]) == 0) $this->msg["erro_senha"] = "Precisa ter pelo menos um: número";
+					else $this->msg["erro_senha"] .= ", número";
 				}
 				if (!$specialChars) {
-					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: caracter especial";
-					else $erro_senha .= ", caracter especial";
+					if (strlen($this->msg["erro_senha"]) == 0) $this->msg["erro_senha"] = "Precisa ter pelo menos um: caracter especial";
+					else $this->msg["erro_senha"] .= ", caracter especial";
 				}
 				if (strlen($_POST["senha"]) < 8) {
-					if (strlen($erro_senha) == 0) $erro_senha = "Precisa ter pelo menos um: 8 caracteres";
-					else $erro_senha .= ", 8 caracteres";
+					if (strlen($this->msg["erro_senha"]) == 0) $erro_senha = "Precisa ter pelo menos: 8 caracteres";
+					else $this->msg["erro_senha"] .= ", 8 caracteres";
 				}
 
-				$erro = "s";
+				$this->msg["erro"] = true;
 			}
 		}
+	}
 
-        return ["erro" => $erro, "erro_nome" => $erro_nome, "erro_cpf" => $erro_cpf, "erro_email" => $erro_email, "erro_senha" => $erro_senha];
-    }
+	public function valida_imagem()
+	{
 
-    public function alterar()
-    {
+		if (!isset($_FILES) || !isset($_FILES["imagem_perfil"])) {
+			$this->msg["erro_imagem"] = "Selecione uma imagem!";
+			$this->msg["erro"] = true;
+			return;
+		}
 
-		if(!$this->permissao()){
+		$imagem_perfil = $_FILES["imagem_perfil"];
+		$tipo = explode("/", $imagem_perfil["type"]);
+
+		if ($imagem_perfil["size"] > 500000) {
+			$this->msg["erro_imagem"] = "A imagem é muito grande";
+			$this->msg["erro"] = true;
+			return;
+		}
+
+		if ($tipo[1] != "png" && $tipo[1] != "jpeg") {
+			$this->msg["erro_imagem"] = "Tipo inválido";
+			$this->msg["erro"] = true;
+			return;
+		}
+	}
+
+	public function alterar()
+	{
+		if (!$this->permissao()) {
 			return view("erro.php");
 		}
 
-		if($_SESSION["grau_acesso"] != "A"){
+		if ($_SESSION["grau_acesso"] == "I") {
 			return view("erro.php");
-		} else if($_SESSION["grau_acesso"] == "A" && isset($_SESSION["id_usuario_comum"])){
+		} else if ($_SESSION["grau_acesso"] == "A" && isset($_SESSION["id_usuario_comum"])) {
 			$id = $_SESSION["id_usuario_comum"];
-			$retorno = $this->validar_dados($id);
-		} else if($_SESSION["grau_acesso"] == "U" || $_SESSION["grau_acesso"] == "A" && !isset($_SESSION["id_usuario_comum"])){
+			$this->validar_dados($id);
+		} else if ($_SESSION["grau_acesso"] == "U" || $_SESSION["grau_acesso"] == "A" && !isset($_SESSION["id_usuario_comum"])) {
 			$id = $_SESSION["id_usuario"];
-			$retorno = $this->validar_dados($id);
+			$this->validar_dados($id);
 		}
-        
-        if ($retorno["erro"] == 's') {
-            echo json_encode($retorno);
-            return;
-        }
+
+		if ($this->msg["erro"] == true) {
+			echo json_encode($this->msg);
+			return;
+		}
+
+
+		if (isset($_FILES) && isset($_FILES["imagem_perfil"]) && !$this->valida_imagem()) {
+			echo json_encode($this->msg);
+			return;
+		}
 
 		$nome = $_POST["nome"];
 		$cpf = preg_replace('/[^0-9]/is', '', $_POST["cpf"]);
 		$email = $_POST["email"];
 		$senha = $_POST["senha"];
-		
-		if(!empty($senha)){
-			$senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-			$this->model->alterar($id, $nome, $cpf, $email, $senha);
-		} else {
-			$this->model->alterar($id, $nome, $cpf, $email);
+		$imagem_perfil = $_FILES["imagem_perfil"];
 
+		if (!empty($senha)) $senha = null;
+		else $senha = password_hash($senha, PASSWORD_DEFAULT);
+
+		if ($this->model->alterar($id, $nome, $cpf, $email, $senha)) {
+			if($this->model->inserir_imagem($id, $imagem_perfil)){
+				$this->msg["erro_upload"] = true;
+			}
+		} else {
+			$this->erro_msg["erro_alterar"] = "Erro ao alterar usuário, tente mais tarde!";
+			$this->msg["erro"] = true;
 		}
-		
-        echo json_encode($retorno);
-    }
+
+		echo json_encode($this->msg);
+	}
 
 	//--------------------------------------------------------------------
 }

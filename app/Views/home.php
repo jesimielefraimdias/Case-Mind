@@ -42,7 +42,7 @@
 
             <ul class="px-4 navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" id = "sair" href="#">Sair</a>
+                    <a class="nav-link" id="sair" href="#">Sair</a>
                 </li>
             </ul>
         </nav>
@@ -54,21 +54,30 @@
 
             <div class="row card col-11">
                 <div class="card-header row">
-                    <span id = "usuario"></span>
+                    <span id="usuario"></span>
                 </div>
 
                 <form class="card-body row justify-content-around">
-                    <div class="col-6 form-group">
-                        <label for="nome">Nome</label>
-                        <input class="form-control" type="text" id="nome" name="nome" placeholder="Trocar nome">
-                        <span class="text-danger" id="erro_nome"></span>
+                    <div class="col-3 form-group text-center">
+                        <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="mt-3">
+                        <input class="btn btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
+                        <span class="text-danger" id="erro_imagem_perfil"></span>
                     </div>
 
-                    <div class="col-6 form-group">
-                        <label for="cpf">Cpf</label>
-                        <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Trocar cpf">
-                        <span class="text-danger" id="erro_cpf"></span>
+                    <div class="col-9">
+                        <div class="col-12 form-group">
+                            <label for="nome">Nome</label>
+                            <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                            <span class="text-danger" id="erro_nome"></span>
+                        </div>
+
+                        <div class="col-12 form-group">
+                            <label for="cpf">Cpf</label>
+                            <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Digite seu cpf">
+                            <span class="text-danger" id="erro_cpf"></span>
+                        </div>
                     </div>
+
 
                     <div class="col-6 form-group">
                         <label for="email">Email</label>

@@ -16,7 +16,6 @@ class Home_model extends Model
 
     public function alterar($id, $nome, $cpf, $email, $senha = null)
     {
-
         if($senha == null){
             $data = [
                 "nome" => $nome,
@@ -36,20 +35,38 @@ class Home_model extends Model
         $builder = $this->db->table("usuario");
         $builder->set($data);
         $builder->where("id_usuario", $id);
-        $builder->update();
 
+        if(!$builder->update()){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function inserir_imagem($id_usuario, $imagem_perfil)
+    { 
+        $tipo = explode("/",$imagem_perfil["type"]);
+        $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
+
+        if(!move_uploaded_file($imagem_perfil["tmp_name"], $target)){
+            return false;
+        }
         return true;
     }
 
     public function get_usuario_id($id)
     {
         $data = [
-            "id_usuario" => $id
+            "id" => $id
         ];
 
-        $query = $this->db->table("usuario")->getWhere($data);
+        $builder = $this->db->table("usuario")->where($data);
+        if($builder->countAllResults() == 1){
+            $query = $builder->get();
+            return $query->getRow();
+        }
 
-        return $query->getResult();
+        return null;
     }
 
     public function get_usuario_cpf($cpf)
@@ -58,9 +75,13 @@ class Home_model extends Model
             "cpf" => $cpf
         ];
 
-        $query = $this->db->table("usuario")->getWhere($data);
+        $builder = $this->db->table("usuario")->where($data);
+        if($builder->countAllResults() == 1){
+            $query = $builder->get();
+            return $query->getRow();
+        }
 
-        return $query->getResult();
+        return null;
     }
 
     public function get_usuario_email($email)
@@ -69,9 +90,13 @@ class Home_model extends Model
             "email" => $email
         ];
 
-        $query = $this->db->table("usuario")->getWhere($data);
+        $builder = $this->db->table("usuario")->where($data);
+        if($builder->countAllResults() == 1){
+            $query = $builder->get();
+            return $query->getRow();
+        }
 
-        return $query->getResult();
+        return null;    
     }
 }
 

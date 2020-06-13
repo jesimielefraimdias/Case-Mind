@@ -33,7 +33,18 @@
     <title>Formulário de cadastro</title>
 
     <style>
+        #imagem_perfil_previa {
+            display: block;
+            width: 80%;
+            height: 70%;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
 
+        #imagem_perfil {
+            width: 50%;
+            border: 1px solid red;
+        }
     </style>
 </head>
 
@@ -64,23 +75,25 @@
 
                     <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
 
-                        <div class="col-12 form-group">
-                            <label for="imagem_perfil">Imagem perfil</label>
-                            <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" class="d-block align-top">
-                            <input class="form-control" type="file" id="imagem_perfil" name="imagem_perfil" style="display:none;">
-                            <span class="text-danger" id="erro_imagem_perfil"></span>
+
+                        <div class="col-3 form-group text-center">
+                            <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="mt-3">
+                            <input class="btn btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class = "btn">
+                            <span class="text-danger" id="erro_imagem"></span>
                         </div>
 
-                        <div class="col-12 form-group">
-                            <label for="nome">Nome</label>
-                            <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
-                            <span class="text-danger" id="erro_nome"></span>
-                        </div>
+                        <div class="col-9">
+                            <div class="col-12 form-group">
+                                <label for="nome">Nome</label>
+                                <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                                <span class="text-danger" id="erro_nome"></span>
+                            </div>
 
-                        <div class="col-12 form-group">
-                            <label for="cpf">Cpf</label>
-                            <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Digite seu cpf">
-                            <span class="text-danger" id="erro_cpf"></span>
+                            <div class="col-12 form-group">
+                                <label for="cpf">Cpf</label>
+                                <input class="form-control" type="text" id="cpf" name="cpf" placeholder="Digite seu cpf">
+                                <span class="text-danger" id="erro_cpf"></span>
+                            </div>
                         </div>
 
                         <div class="col-12 form-group">
@@ -97,6 +110,7 @@
 
                         <div class="row col-12 justify-content-around">
                             <input class="col-6 btn btn-large btn-info" type="submit" id="inscrever_se" value="Salvar">
+                            <div class="col-12 text-danger text-center" id="erro_upload"></div>
                         </div>
                     </form>
                 </div>
