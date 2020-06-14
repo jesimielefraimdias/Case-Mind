@@ -3,12 +3,14 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
+use App\Models\Home_model;
 
 class Home_controller extends Controller
 {
 	protected $model;
 
-    public function __construct(){
+    public function __construct(){		
+		$this->model = new Home_model();
 		session_start();
     }
 
@@ -35,6 +37,20 @@ class Home_controller extends Controller
 		}
 
 		session_destroy();
+	}
+
+	public function get_usuario(){
+		if (!$this->permissao()) {
+			return view("erro.php");
+		}
+		if(!isset($_SESSION["id_usuario"])) return view("erro.php");
+
+		
+		if(($retorno = $this->model->get_usuario($_SESSION["id_usuario"])) == null){
+			return view("erro.php");
+		}
+	
+		echo json_encode($retorno);
 	}
 }
 

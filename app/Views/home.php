@@ -21,7 +21,6 @@
      crossorigin="anonymous"> -->
 
 
-    <script src="<?php echo base_url('assets/scripts/home.js'); ?>"></script>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
@@ -32,6 +31,7 @@
     <!-- fontawesome CSS-->
     <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
 
+    <script src="<?php echo base_url('assets/scripts/home.js'); ?>"></script>
     <title>Home usuário</title>
 </head>
 
@@ -69,7 +69,9 @@
                     </ul>
                 </nav>
             </div>
-            <div id="info" class="col-8">
+
+            <div id="info" class="mx-2 pb-4 py-1 col-9 row border">
+                
             </div>
     </section>
 

@@ -22,7 +22,7 @@ $(document).ready(() => {
                 $('#imagem_perfil_previa').attr('src', e.target.result);
             }
 
-            reader.readAsDataURL(input.files[0]); // convert to base64 string
+            reader.readAsDataURL(input.files[0]);
         }
     }
 
