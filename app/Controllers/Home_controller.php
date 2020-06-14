@@ -52,5 +52,21 @@ class Home_controller extends Controller
 	
 		echo json_encode($retorno);
 	}
+
+	public function unset_usuario_comum(){
+		if(isset($_SESSION["id_usuario_comum"])){
+			unset($_SESSION["id_usuario_comum"]);
+		}
+	}
+
+	public function abrir_imagem(){
+		$caminho_img = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_1.jpeg";
+
+		if(file_exists($caminho_img)){
+			//print_r(file($caminho_img));
+			echo file_get_contents($caminho_img);
+			
+		}
+	}
 }
 

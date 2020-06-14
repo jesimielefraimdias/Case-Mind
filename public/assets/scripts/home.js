@@ -37,7 +37,10 @@ $(document).ready(() => {
     });
 
     $("#alterar_dados").on("click", () => {
-        $(location).attr("href", base_url + "\\Alterar_controller");
+        $.get(base_url + "\\Home_controller\\unset_usuario_comum", () => {
+            $(location).attr("href", base_url + "\\Alterar_controller");
+        });
+        //$(location).attr("href", base_url + "\\Alterar_controller");
     });
 
     $("#sair").on("click", () => {
@@ -124,6 +127,9 @@ $(document).ready(() => {
     */
     
     $("#meus_dados").on("click", () => {
+
+        $(location).attr("href", base_url + "\\Home_controller\\abrir_imagem");
+        /*
         $.ajax({
             type: "GET",
             url: base_url + "\\Home_controller\\get_usuario",
@@ -146,7 +152,7 @@ $(document).ready(() => {
             error: erro =>{
                 console.log(erro);
             }
-        });
+        });*/
 
     });
 });
