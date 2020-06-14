@@ -11,6 +11,7 @@
         * shrink-to-fit, ele não deixa reduzir o conteúdo.
 
     -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>    
