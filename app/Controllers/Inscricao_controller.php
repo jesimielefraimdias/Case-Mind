@@ -122,7 +122,7 @@ class Inscricao_controller extends Controller
         $imagem_perfil = $_FILES["imagem_perfil"];
         $tipo = explode("/", $imagem_perfil["type"]);
         
-        if($imagem_perfil["size"] > 5000000){
+        if($imagem_perfil["size"] > 500000){
             $this->msg["erro_imagem"] = "A imagem é muito grande";
             $this->msg["erro"] = true;
             return;

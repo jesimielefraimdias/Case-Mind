@@ -22,9 +22,7 @@ class Inscricao_model extends Model
             "email" => $email,
             "senha" => $senha
         ];
-
-        $this->db->table("usuario")->insert($data);
-
+        
         if(!$this->db->table("usuario")->insert($data)){
             return null;
         }
