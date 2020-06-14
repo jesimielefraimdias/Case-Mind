@@ -1,5 +1,3 @@
-
-
 $(document).ready(() => {
 
     let base_url = $("#base_url").val();
@@ -8,7 +6,6 @@ $(document).ready(() => {
         $.ajax({
             type: "GET",
             url: base_url + "\\Informacoes_usuarios_controller\\get_usuarios",
-            data: "competencia=" + "teste",
             dataType: "json",
             success: sucesso => {
                 $("#tabela_tbody").html("");
@@ -38,7 +35,7 @@ $(document).ready(() => {
                         console.log("Msg de erro:", erro);
                     }
                 });
-                
+
             } else if (id[0] == "alterar") {
 
                 $.get(base_url + "\\Alterar_controller\\setar_id", { id_usuario_comum: id[1] },
@@ -57,16 +54,24 @@ $(document).ready(() => {
         let usuario = Object.values(element);
 
         usuario.forEach((element_usuario, index) => {
-            if(index != 0){
-            let text = element_usuario;
-            if (index == 4) {
-                if (element_usuario == "A") text = "Administrador";
-                else if (element_usuario == "U") text = "Usuário";
-                else text = "Inativo";
-            }
+            if (index != 0) {
+                let text = element_usuario;
 
-            let td = $("<td></td>").text(text);
-            $(tr).append(td);
+                if (index == 4) {
+                    if (element_usuario == "A") text = "Administrador";
+                    else if (element_usuario == "U") text = "Usuário";
+                    else text = "Inativo";
+                } else if (index == 2) {
+
+                    cpf = text.slice(0, 3) + ".";
+                    cpf += text.slice(3, 6) + ".";
+                    cpf += text.slice(6, 9) + "-";
+                    cpf += text.slice(9, 11);
+                    text = cpf;
+                }
+
+                let td = $("<td></td>").text(text);
+                $(tr).append(td);
             }
         });
 
@@ -98,9 +103,8 @@ $(document).ready(() => {
 
     atualizar_tabela();
 
-    $("#alterar_meus_dados").on("click", event => {
-        event.preventDefault();
-        $(location).attr("href", base_url + "\\Alterar_controller");
+    $("#voltar").on("click", () => {
+        $(location).attr("href", base_url + "\\Home_controller");
     });
 
 });

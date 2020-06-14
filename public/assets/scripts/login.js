@@ -10,11 +10,8 @@ $(document).ready(() => {
         url: base_url + "\\Erro_controller\\permissao_usuario",
         dataType: "json",
         success: sucesso => {
-            if(sucesso.acesso) $(location).attr("href", base_url + "\\Alterar_controller");
+            if(sucesso.acesso) $(location).attr("href", base_url + "\\Home_controller");
         },
-        error: erro => {
-            console.log(erro);
-        }
     });
 
     $("#entrar").on("click", event => {
@@ -37,8 +34,7 @@ $(document).ready(() => {
                     $("#erro_login").html(sucesso.erro.erro_login);
                 }
                 if (sucesso.erro.erro == false) {
-                    if (sucesso.data.grau_acesso == "U") $(location).attr("href", base_url + "\\Alterar_controller");
-                    else if (sucesso.data.grau_acesso == "A") $(location).attr("href", base_url + "\\Informacoes_usuarios_controller");
+                    if (sucesso.data.grau_acesso != "I") $(location).attr("href", base_url + "\\Home_controller");
                 }
             },
 

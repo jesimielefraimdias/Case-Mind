@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/scripts/home.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/scripts/alterar.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
     <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -56,7 +56,7 @@
 
             <ul class="px-4 navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" id="sair" href="#">Sair</a>
+                    <a class="nav-link" id="voltar" href="#">Voltar</a>
                 </li>
             </ul>
         </nav>

@@ -48,13 +48,11 @@ class Alterar_controller extends Controller
 		return view("alterar.php");
 	}
 
-	public function sair()
+	public function voltar()
 	{
-		if (!$this->permissao()) {
-			return view("erro.php");
+		if ($this->permissao() && isset($_SESSION["id_usuario_comum"])) {
+			unset($_SESSION["id_usuario_comum"]);
 		}
-
-		session_destroy();
 	}
 
 	public function dados_usuario()

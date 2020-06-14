@@ -18,6 +18,7 @@ class Inscricao_controller extends Controller
                     "erro_inserir" => "","erro_upload" => false];
         $this->model = new Inscricao_model();
     }
+    
     public function Index()
     {
         return view("inscricao");

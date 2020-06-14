@@ -20,6 +20,9 @@
      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
      crossorigin="anonymous"> -->
 
+
+    <script src="<?php echo base_url('assets/scripts/home.js'); ?>"></script>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
 
@@ -29,9 +32,7 @@
     <!-- fontawesome CSS-->
     <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
 
-    <script src="<?php echo base_url('assets/scripts/informacoes_usuarios.js'); ?>"></script>
-    
-    <title>Listagem de usuários</title>
+    <title>Home usuário</title>
 </head>
 
 <body>
@@ -43,39 +44,33 @@
 
             <ul class="px-4 navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" id="voltar" href="#">Voltar</a>
+                    <a class="nav-link" id="sair" href="#">Sair</a>
                 </li>
             </ul>
         </nav>
     </header>
 
     <section>
-        <div class="row justify-content-around py-5">
-            
-            <div class="col-10">
-                <div class="card">
-                    <div class="card-header text-center">
-                        Informações dos usuários
-                    </div>
-                    <div class="p-0 card-body">
-                        <table id="tabela" class="text-center table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>cpf</th>
-                                    <th>email</th>
-                                    <th>Grau de acesso</th>
-                                    <th>Alterar / Remover</th>
-                                </tr>
-                            </thead>
+        <div class="row">
+            <div class="bg-secondary col-2">
+                <nav id="home_nav" class="navbar">
+                    <ul class="pl-2 navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" id="documentacao" href="#">Documentação</a>
+                        </li>
 
-                            <tbody id = "tabela_tbody">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                        <li class="nav-item">
+                            <a class="nav-link" id="meus_dados" href="#">Meus dados</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="alterar_dados" href="#">Alterar meus dados</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </div>
+            <div id="info" class="col-8">
+            </div>
     </section>
 
     <footer class="mt-4 text-white bg-dark align-self-end">
