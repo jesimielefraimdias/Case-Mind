@@ -54,7 +54,8 @@
 
     <section>
         <div class="row justify-content-around py-5">
-            <div class="col-11">
+            
+            <div class="col-10">
                 <div class="card">
                     <div class="card-header text-center">
                         Informações dos usuários
@@ -63,10 +64,9 @@
                         <table id="tabela" class="text-center table">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>id</th>
-                                    <th>Email</th>
                                     <th>Nome</th>
-                                    <th>Cpf</th>
+                                    <th>cpf</th>
+                                    <th>email</th>
                                     <th>Grau de acesso</th>
                                     <th>Alterar / Remover</th>
                                 </tr>

@@ -32,17 +32,17 @@
 
     <style>
         #imagem_perfil_previa {
-            display: block;
-            width: 80%;
-            height: 70%;
-            border-radius: 50%;
+            height: 150px;
+            width: 150px;
             margin: 10px auto;
+            border-radius: 50px;
         }
 
         #imagem_perfil {
-            width: 50%;
+            display: none;
         }
     </style>
+
     <title>Home do usuário</title>
 
 </head>
@@ -66,16 +66,17 @@
 
         <div class="row justify-content-around pt-5">
 
-            <div class="row card col-11">
+            <div class="row card col-10">
                 <div class="card-header row">
                     <span id="usuario"></span>
                 </div>
 
                 <form id="form_alterar" class="card-body row justify-content-around">
-                    <div class="col-3 form-group text-center">
-                        <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="mt-3">
-                        <input class="btn btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
-                        <span class="text-danger" id="erro_imagem"></span>
+
+                    <div class="border col-3 form-group text-center align-self-center">
+                        <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
+                        <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="img-fluid .img-thumbnail">
+                        <div class="text-danger" id="erro_imagem"></div>
                     </div>
 
                     <div class="col-9">

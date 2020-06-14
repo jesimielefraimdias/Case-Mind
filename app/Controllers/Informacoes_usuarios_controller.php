@@ -32,10 +32,7 @@ class Informacoes_usuarios_controller extends Controller
 
 	public function get_usuarios(){
 		$retorno = $this->model->get_usuarios($_SESSION["id_usuario"]);
-		//echo json_encode($_GET);
-
 		echo json_encode($retorno);
-		
 	}
 
 	public function ativarordesativar(){

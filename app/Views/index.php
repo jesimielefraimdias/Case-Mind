@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>    
-    <script src="<?php echo base_url('assets/scripts/login.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
    
 
@@ -32,6 +31,8 @@
     <!-- fontawesome CSS-->
     <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
 
+    <script src="<?php echo base_url('assets/scripts/login.js'); ?>"></script>
+    
     <title>Login</title>
 
     <style>

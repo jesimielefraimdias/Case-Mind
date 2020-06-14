@@ -33,7 +33,6 @@ class Informacoes_usuarios_model extends Model
         $query = $builder->get();
         $objt = $query->getResult()[0];
 
-
         if($objt->grau_acesso == "I"){
             $this->ativar($id);
         } else {

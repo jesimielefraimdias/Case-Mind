@@ -1,9 +1,18 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
-
+    
     let base_url = $("#base_url").val();
     let change = false;
+
+    $("#imagem_perfil_previa").on("click", () =>{
+        $("#imagem_perfil").trigger("click");
+    });
+
+    $("#imagem_perfil").change(function () {
+        change = true;
+        readURL(this);
+    });
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -17,25 +26,29 @@ $(document).ready(() => {
         }
     }
 
-    $("#imagem_perfil").change(function () {
-        change = true;
-        readURL(this);
-    });
-
 
     $.ajax({
         type: "GET",
-        url: base_url + "\\Home_controller\\dados_usuario",
+        url: base_url + "\\Alterar_controller\\dados_usuario",
         dataType: "json",
         success: sucesso => {
             $("#nome").val(sucesso.nome);
-            $("#cpf").val(sucesso.cpf);
+            
+            let cpf = sucesso.cpf.slice(0, 3) + ".";
+            cpf += sucesso.cpf.slice(3, 6) + ".";
+            cpf += sucesso.cpf.slice(6, 9) + "-";
+            cpf += sucesso.cpf.slice(9, 11);
+
+            $("#cpf").val(cpf);
             $("#email").val(sucesso.email);
             console.log(sucesso);
 
-            if (sucesso.grau_acesso == "U") $("#usuario").html("Usuário: " + sucesso.nome);
-            else if (sucesso.grau_acesso == "A") $("#usuario").html("Administrador: " + sucesso.nome);
-            else if (sucesso.grau_acesso == "I") $("#usuario").html("Usuário inativo: " + sucesso.nome);
+            let primeiro_nome = sucesso.nome.split(" ");
+            primeiro_nome = primeiro_nome[0];
+
+            if (sucesso.grau_acesso == "U") $("#usuario").html("Usuário: " + primeiro_nome);
+            else if (sucesso.grau_acesso == "A") $("#usuario").html("Administrador: " + primeiro_nome);
+            else if (sucesso.grau_acesso == "I") $("#usuario").html("Usuário inativo: " + primeiro_nome);
         },
         error: erro => {
             console.log(erro);
@@ -45,7 +58,7 @@ $(document).ready(() => {
 
 
     $("#sair").on("click", () => {
-        $.get(base_url + "\\Home_controller\\sair", () => {
+        $.get(base_url + "\\Alterar_controller\\sair", () => {
             $(location).attr("href", base_url + "\\Login_controller");
         });
     });
@@ -57,11 +70,11 @@ $(document).ready(() => {
 
         if (!change) {
             form = $("#form_alterar").serialize();
-            console.log("Teste "+form);
+            console.log("Teste " + form);
 
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Home_controller\\alterar",
+                url: base_url + "\\Alterar_controller\\alterar",
                 data: form,
                 dataType: "json",
                 success: sucesso => {
@@ -76,11 +89,11 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Dados alterados!");
-                        $(location).attr("href", base_url + "\\Home_controller");
+                        $(location).attr("href", base_url + "\\Alterar_controller");
                     } else if (sucesso.erro == false && sucesso.erro_upload == true) {
                         let $msg = "Dados alterados, não foi possível dar upload na imagem.<br>Acesse sua página para trocar!"
                         alert($msg);
-                        $(location).attr("href", base_url + "\\Home_controller");
+                        $(location).attr("href", base_url + "\\Alterar_controller");
                     }
                 },
                 error: erro => {
@@ -93,7 +106,7 @@ $(document).ready(() => {
             console.log(form);
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Home_controller\\alterar",
+                url: base_url + "\\Alterar_controller\\alterar",
                 data: form,
                 dataType: "json",
                 processData: false,
@@ -110,7 +123,7 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Dados alterados!");
-                        $(location).attr("href", base_url + "\\Home_controller");
+                        $(location).attr("href", base_url + "\\Alterar_controller");
                     }
                 },
                 error: erro => {

@@ -2,27 +2,22 @@
 
 $(document).ready(() => {
 
-
     let base_url = $("#base_url").val();
 
-
-    $.ajax({
-        type: "GET",
-        url: base_url + "\\Informacoes_usuarios_controller\\get_usuarios",
-        data: "competencia=" + "teste",
-        dataType: "json",
-        success: sucesso => {
-
-            sucesso.forEach(listagem);
-            alterarordesativar();
-        },
-        error: erro => { console.log("Msg de erro:", erro); }
-    });
-
-    $("#alterar_meus_dados").on("click", event => {
-        event.preventDefault();
-        $(location).attr("href", base_url + "\\Home_controller");
-    });
+    atualizar_tabela = () => {
+        $.ajax({
+            type: "GET",
+            url: base_url + "\\Informacoes_usuarios_controller\\get_usuarios",
+            data: "competencia=" + "teste",
+            dataType: "json",
+            success: sucesso => {
+                $("#tabela_tbody").html("");
+                sucesso.forEach(listagem);
+                alterarordesativar();
+            },
+            error: erro => { console.log("Msg de erro:", erro); }
+        });
+    }
 
     alterarordesativar = () => {
         $("button").on("click", event => {
@@ -36,18 +31,19 @@ $(document).ready(() => {
                     url: base_url + "\\Informacoes_usuarios_controller\\ativarordesativar",
                     data: "id_usuario=" + id[1],
                     dataType: "json",
-                    success: sucesso => {
-                        console.log(sucesso);
+                    success: () => {
+                        atualizar_tabela();
                     },
                     error: erro => {
                         console.log("Msg de erro:", erro);
                     }
                 });
+                
             } else if (id[0] == "alterar") {
 
-                $.get(base_url + "\\Home_controller\\setar_id", { id_usuario_comum: id[1] },
+                $.get(base_url + "\\Alterar_controller\\setar_id", { id_usuario_comum: id[1] },
                     () => {
-                        $(location).attr("href", base_url + "\\Home_controller");
+                        $(location).attr("href", base_url + "\\Alterar_controller");
                     }
                 );
             }
@@ -61,8 +57,8 @@ $(document).ready(() => {
         let usuario = Object.values(element);
 
         usuario.forEach((element_usuario, index) => {
+            if(index != 0){
             let text = element_usuario;
-
             if (index == 4) {
                 if (element_usuario == "A") text = "Administrador";
                 else if (element_usuario == "U") text = "Usuário";
@@ -71,6 +67,7 @@ $(document).ready(() => {
 
             let td = $("<td></td>").text(text);
             $(tr).append(td);
+            }
         });
 
 
@@ -97,6 +94,13 @@ $(document).ready(() => {
         td.append(buttom_alterar, buttom_desativarorativar);
         tr.append(td);
         $("#tabela_tbody").append(tr);
-        //       console.log(Object.values(element));
     }
+
+    atualizar_tabela();
+
+    $("#alterar_meus_dados").on("click", event => {
+        event.preventDefault();
+        $(location).attr("href", base_url + "\\Alterar_controller");
+    });
+
 });

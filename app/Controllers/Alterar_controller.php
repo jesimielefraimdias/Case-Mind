@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use App\Models\Home_model;
+use App\Models\Alterar_model;
 
-class Home_controller extends Controller
+class Alterar_controller extends Controller
 {
 	protected $model;
 	private $msg;
@@ -19,17 +19,15 @@ class Home_controller extends Controller
 			"erro_alterar" => "", "erro_upload" => false
 		];
 
-		$this->model = new Home_model();
+		$this->model = new Alterar_model();
 
 		session_start();
 	}
 
 	public function setar_id()
 	{
-
 		if (isset($_GET["id_usuario_comum"])) {
 			$_SESSION["id_usuario_comum"] = $_GET["id_usuario_comum"];
-			echo json_encode("Sucesso");
 		}
 	}
 
@@ -47,7 +45,7 @@ class Home_controller extends Controller
 			return view("erro.php");
 		}
 
-		return view("home.php");
+		return view("alterar.php");
 	}
 
 	public function sair()
@@ -72,16 +70,12 @@ class Home_controller extends Controller
 			$id_usuario = $_SESSION["id_usuario_comum"];
 		}
 
-		$retorno = $this->model->get_usuario_id(1);
+		$retorno = $this->model->get_usuario_id($id_usuario);
 
 		if ($retorno == null) {
 			return view("erro.php");
 		}
 		echo json_encode($retorno);
-
-
-		return;
-		//		echo json_encode(["cpf" => $retorno->cpf, "email" => $retorno->email, "nome" => $retorno->nome, "grau_acesso" => $retorno->grau_acesso]);
 	}
 
 	protected function valida_cpf($cpf)

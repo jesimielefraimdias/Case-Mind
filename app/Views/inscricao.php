@@ -73,7 +73,6 @@
 
                     <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
 
-
                         <div class="border col-3 form-group text-center align-self-center">
                             <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
                             <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="img-fluid .img-thumbnail">
@@ -94,20 +93,20 @@
                             </div>
                         </div>
 
-                        <div class="col-12 form-group">
+                        <div class="col-6 form-group">
                             <label for="email">Email</label>
                             <input class="form-control" type="email" id="email" name="email" placeholder="Digite seu e-mail">
                             <span class="text-danger" id="erro_email"></span>
                         </div>
 
-                        <div class="col-12 form-group">
+                        <div class="col-6 form-group">
                             <label for="senha">Senha</label>
                             <input class="form-control" type="password" id="senha" name="senha" placeholder="Crie uma senha">
                             <span class="text-danger" id="erro_senha"></span>
                         </div>
 
                         <div class="row col-12 justify-content-around">
-                            <input class="col-6 btn btn-large btn-info" type="submit" id="inscrever_se" value="Salvar">
+                            <input class="col-6 btn btn-large btn-info" type="submit" id="inscrever_se" value="Inscrever-se">
                             <div class="col-12 text-danger text-center" id="erro_inserir"></div>
                         </div>
                     </form>
