@@ -34,7 +34,7 @@ class Inscricao_model extends Model
     {
         
         $tipo = explode("/",$imagem_perfil["type"]);
-        $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
+        $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
 
         if(!move_uploaded_file($imagem_perfil["tmp_name"], $target)){
             return false;
@@ -47,12 +47,14 @@ class Inscricao_model extends Model
         $data = [
             "cpf" => $cpf
         ];
-
-        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
-            return $query->getResult()[0];
+        $query = $this->db->table("usuario")->getWhere($data);
+        $retorno = $query->getResult();
+        
+        if(count($retorno) == 0){
+            return null;
         }
-        return null;
 
+        return $retorno[0];
     }
 
     public function get_usuario_email($email)
@@ -61,12 +63,14 @@ class Inscricao_model extends Model
             "email" => $email
         ];
 
-        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
-            return $query->getResult()[0];
+        $query = $this->db->table("usuario")->getWhere($data);
+        $retorno = $query->getResult();
+        
+        if(count($retorno) == 0){
+            return null;
         }
-        return null;
+
+        return $retorno[0];
 
     }
 }
-
-?>

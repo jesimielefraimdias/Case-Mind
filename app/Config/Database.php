@@ -35,7 +35,7 @@ class Database extends \CodeIgniter\Database\Config
 		'hostname' => 'localhost',
 		'username' => 'postgres',
 		'password' => 'computacao',
-		'database' => 'case',
+		'database' => 'case_mind',
 		'DBDriver' => 'postgre',
 		'DBPrefix' => '',
 		'pConnect' => false,

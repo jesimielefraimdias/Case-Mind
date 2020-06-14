@@ -36,17 +36,13 @@ class Home_model extends Model
         $builder->set($data);
         $builder->where("id_usuario", $id);
 
-        if(!$builder->update()){
-            return false;
-        }
-
-        return true;
+        return $builder->update();
     }
 
     public function inserir_imagem($id_usuario, $imagem_perfil)
     { 
         $tipo = explode("/",$imagem_perfil["type"]);
-        $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
+        $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
 
         if(!move_uploaded_file($imagem_perfil["tmp_name"], $target)){
             return false;
@@ -60,10 +56,14 @@ class Home_model extends Model
             "id_usuario" => $id
         ];
 
-        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
-            return $query->getResult()[0];
+        $query = $this->db->table("usuario")->getWhere($data);
+        $retorno = $query->getResult();
+        
+        if(count($retorno) == 0){
+            return null;
         }
-        return null;
+
+        return $retorno[0];
     }
 
     public function get_usuario_cpf($cpf)
@@ -71,11 +71,14 @@ class Home_model extends Model
         $data = [
             "cpf" => $cpf
         ];
-
-        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
-            return $query->getResult()[0];
+        $query = $this->db->table("usuario")->getWhere($data);
+        $retorno = $query->getResult();
+        
+        if(count($retorno) == 0){
+            return null;
         }
-        return null;
+
+        return $retorno[0];
     }
 
     public function get_usuario_email($email)
@@ -84,11 +87,13 @@ class Home_model extends Model
             "email" => $email
         ];
 
-        if(($query = $this->db->table("usuario")->getWhere($data)) != null){
-            return $query->getResult()[0];
+        $query = $this->db->table("usuario")->getWhere($data);
+        $retorno = $query->getResult();
+        
+        if(count($retorno) == 0){
+            return null;
         }
-        return null;    
+
+        return $retorno[0];
     }
 }
-
-?>

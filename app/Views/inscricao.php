@@ -41,8 +41,7 @@
         }
 
         #imagem_perfil {
-            width: 50%;
-            margin: 0 auto;
+            display: none;
         }
     </style>
 </head>
@@ -75,10 +74,10 @@
                     <form id="form_inscricao" class="card-body row justify-content-around" enctype="multipart/form-data">
 
 
-                        <div class="col-3 form-group text-center align-self-center">
+                        <div class="border col-3 form-group text-center align-self-center">
+                            <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
                             <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="img-fluid .img-thumbnail">
-                            <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class = "btn">
-                            <span class="text-danger" id="erro_imagem"></span>
+                            <div class="text-danger" id="erro_imagem"></div>
                         </div>
 
                         <div class="col-9">

@@ -70,18 +70,18 @@ class Inscricao_controller extends Controller
         if (!$this->valida_cpf($_POST["cpf"])) {
             $this->msg["erro_cpf"] = "Digite um cpf válido!";
             $this->msg["erro"] = true;
-        } /*else if ($this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"])) != null) {
+        } else if ($this->model->get_usuario_cpf(preg_replace('/[^0-9]/is', '', $_POST["cpf"])) != null) {
             $this->msg["erro_cpf"] = "Cpf já cadastrado!";
             $this->msg["erro"] = true;
-        }*/
+        }
 
         if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
             $this->msg["erro_email"] = "Digite um email válido!";
             $this->msg["erro"] = true;
-        } /*else if ($this->model->get_usuario_email($_POST["email"]) != null) {
+        }else if ($this->model->get_usuario_email($_POST["email"]) != null) {
             $this->msg["erro_email"] = "Email já cadastrado!";
             $this->msg["erro"] = true;
-        }*/
+        }
 
         if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($_POST["senha"]) < 8) {
             
@@ -145,9 +145,6 @@ class Inscricao_controller extends Controller
             echo json_encode($this->msg);
             return;
         }
-
-        echo json_encode($this->msg);
-        return;
     
         $nome = $_POST["nome"];
         $cpf = preg_replace('/[^0-9]/is', '', $_POST["cpf"]);
@@ -155,7 +152,10 @@ class Inscricao_controller extends Controller
         $senha = password_hash($_POST["senha"], PASSWORD_DEFAULT);
         $imagem_perfil = $_FILES["imagem_perfil"];
 
-        if(($retorno = $this->model->inserir($nome, $cpf, $email, $senha)) != null){
+
+        $retorno = $this->model->inserir($nome, $cpf, $email, $senha);
+       
+        if(($retorno) != null){
             if(!$this->model->inserir_imagem($retorno->id_usuario, $imagem_perfil)){
                 $this->msg["erro_upload"] = true;
             }
@@ -163,7 +163,7 @@ class Inscricao_controller extends Controller
             $this->msg["erro_inserir"] = "Erro ao cadastrar usuário, tente mais tarde!";
             $this->msg["erro"] = true;
         }
-        
+
         echo json_encode($this->msg);
     }
 }

@@ -6,6 +6,10 @@ $(document).ready(() => {
     let base_url = $("#base_url").val();
     let change = false;
 
+    $("#imagem_perfil_previa").on("click", () =>{
+        $("#imagem_perfil").trigger("click");
+    });
+
     $("#imagem_perfil").change(function () {
         change = true;
         readURL(this);
