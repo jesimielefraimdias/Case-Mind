@@ -29,12 +29,13 @@ class Database extends \CodeIgniter\Database\Config
 	 *
 	 * @var array
 	 */
+
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
 		'username' => 'postgres',
 		'password' => 'computacao',
-		'database' => 'case_mind',
+		'database' => 'case',
 		'DBDriver' => 'postgre',
 		'DBPrefix' => '',
 		'pConnect' => false,

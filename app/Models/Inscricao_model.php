@@ -25,6 +25,10 @@ class Inscricao_model extends Model
 
         $this->db->table("usuario")->insert($data);
 
+        if(!$this->db->table("usuario")->insert($data)){
+            return null;
+        }
+
         return $this->get_usuario_cpf($cpf);
     }
 
