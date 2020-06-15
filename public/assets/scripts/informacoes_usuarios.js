@@ -1,11 +1,11 @@
 $(document).ready(() => {
 
-    let base_url = $("#base_url").val();
+//    let location.origin = $("#location.origin").val();
 
     atualizar_tabela = () => {
         $.ajax({
             type: "GET",
-            url: base_url + "\\Informacoes_usuarios_controller\\get_usuarios",
+            url: location.origin + "\\Informacoes_usuarios_controller\\get_usuarios",
             dataType: "json",
             success: sucesso => {
                 $("#tabela_tbody").html("");
@@ -13,7 +13,7 @@ $(document).ready(() => {
                 alterarordesativar();
             },
             error: () => {
-                $(location).attr("href", base_url + "\\Erro_controller");
+                $(location).attr("href", location.origin + "\\Erro_controller");
             }
 
         });
@@ -26,7 +26,7 @@ $(document).ready(() => {
             id = id.split("_");
 
             if (id[0] == "desativarorativar") {
-                $.get(base_url + "\\Informacoes_usuarios_controller\\ativarordesativar", { id_usuario: id[1] },
+                $.get(location.origin + "\\Informacoes_usuarios_controller\\ativarordesativar", { id_usuario: id[1] },
                     () => {
                         atualizar_tabela();
                     }
@@ -34,9 +34,9 @@ $(document).ready(() => {
 
             } else if (id[0] == "alterar") {
 
-                $.get(base_url + "\\Alterar_controller\\setar_id", { id_usuario_comum: id[1] },
+                $.get(location.origin + "\\Alterar_controller\\setar_id", { id_usuario_comum: id[1] },
                     () => {
-                        $(location).attr("href", base_url + "\\Alterar_controller");
+                        $(location).attr("href", location.origin + "\\Alterar_controller");
                     }
                 );
             }
@@ -99,7 +99,7 @@ $(document).ready(() => {
     atualizar_tabela();
 
     $("#voltar").on("click", () => {
-        $(location).attr("href", base_url + "\\Home_controller");
+        $(location).attr("href", location.origin + "\\Home_controller");
     });
 
 });

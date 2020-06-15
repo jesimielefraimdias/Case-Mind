@@ -2,19 +2,21 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
-
-    let base_url = $("#base_url").val();
     let change = false;
+
+    $("#login").on("click", () => {
+        $(location).attr("href", location.origin + "\\Login_controller");
+    });
 
     $.ajax({
         type: "GET",
-        url: base_url + "\\Erro_controller\\permissao_usuario",
+        url: location.origin + "\\Erro_controller\\permissao_usuario",
         dataType: "json",
         success: sucesso => {
-            if(sucesso.acesso) $(location).attr("href", base_url + "\\Home_controller");
+            if(sucesso.acesso) $(location).attr("href", location.origin + "\\Home_controller");
         },
         error: () => {
-            $(location).attr("href", base_url + "\\Erro_controller");
+            $(location).attr("href", location.origin + "\\Erro_controller");
         }
     });
 
@@ -50,7 +52,7 @@ $(document).ready(() => {
 
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Inscricao_controller\\cadastro",
+                url: location.origin + "\\Inscricao_controller\\cadastro",
                 data: form,
                 dataType: "json",
                 success: sucesso => {
@@ -67,22 +69,22 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Obrigado por se cadastrar!");
-                        $(location).attr("href", base_url + "\\Login_controller");
+                        $(location).attr("href", location.origin + "\\Login_controller");
                     } else if (sucesso.erro == false && sucesso.erro_upload == true) {
                         let $msg = "Obrigado por se cadastrar!<br>Não foi possível dar upload na imagem.<br>Acesse sua página para trocar!"
                         alert($msg);
-                        $(location).attr("href", base_url + "\\Login_controller");
+                        $(location).attr("href", location.origin + "\\Login_controller");
                     }
                 },
                 error: () => {
-                    $(location).attr("href", base_url + "\\Erro_controller");
+                    $(location).attr("href", location.origin + "\\Erro_controller");
                 }
             });
 
         } else {
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Inscricao_controller\\cadastro",
+                url: location.origin + "\\Inscricao_controller\\cadastro",
                 data: form,
                 dataType: "json",
                 processData: false,
@@ -99,15 +101,15 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Obrigado por se cadastrar!");
-                        $(location).attr("href", base_url + "\\Login_controller");
+                        $(location).attr("href", location.origin + "\\Login_controller");
                     } else if (sucesso.erro == false && sucesso.erro_upload == true) {
                         let $msg = "Obrigado por se cadastrar!<br>Não foi possível dar upload na imagem.<br>Acesse sua página para trocar!"
-                        alert($msg);
-                        $(location).attr("href", base_url + "\\Login_controller");
+        
+                        $(location).attr("href", location.origin + "\\Login_controller");
                     }
                 },
                 error: () => {
-                    $(location).attr("href", base_url + "\\Erro_controller");
+                    $(location).attr("href", location.origin + "\\Erro_controller");
                 }
             });
         }

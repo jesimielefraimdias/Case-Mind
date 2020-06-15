@@ -69,6 +69,7 @@ class Home_controller extends Controller
 		$img_png = $caminho_img.".png";
 		$img_jpeg = $caminho_img.".jpeg";
 		
+		
 		if (file_exists($img_png)) {
 			echo base64_encode(file_get_contents($img_png));
 		} else if (file_exists($img_jpeg)) {

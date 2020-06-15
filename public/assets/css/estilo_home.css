@@ -1,0 +1,42 @@
+html,
+body {
+    height: 100%;
+    font-family: Helvetica, "Trebuchet MS", sans-serif;
+    background: #faf9f9;
+}
+
+.meus_dados{
+    font-size: 1.05em;
+}
+
+#home_nav ul {
+    padding: 0;
+    list-style: none;
+    display: block;
+}
+#home_nav ul li {
+    display: block;
+}
+#home_nav ul li a {
+    text-align: center;
+    display: block;
+    line-height: 4em;
+    text-decoration: none;
+    color: honeydew;
+}
+#home_nav ul a:hover {
+    color: #894A1F;
+    background: honeydew;
+}
+
+#home_nav{
+    opacity: 0.7;
+}
+
+.imagem_perfil_previa {
+    height: 200px;
+    width: 200px;
+    border-radius: 50px;
+    border: 1px solid gray;
+}
+

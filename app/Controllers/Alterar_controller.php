@@ -181,7 +181,8 @@ class Alterar_controller extends Controller
 		$imagem_perfil = $_FILES["imagem_perfil"];
 		$tipo = explode("/", $imagem_perfil["type"]);
 
-		if ($imagem_perfil["size"] > 500000) {
+		//Tamanho máximo 2.5mb
+		if ($imagem_perfil["size"] > 2500000) {
 			$this->msg["erro_imagem"] = "A imagem é muito grande";
 			$this->msg["erro"] = true;
 			return;
@@ -241,7 +242,15 @@ class Alterar_controller extends Controller
 
 	public function imagem_usuario()
 	{
-		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_" . $_SESSION["id_usuario"];
+
+		if (!$this->permissao()) {
+			return view("erro.php");
+		}
+
+		$id = $_SESSION["id_usuario"];
+		if(isset($_SESSION["id_usuario_comum"])) $id = $_SESSION["id_usuario_comum"];
+
+		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_" . $id;
 		$img_png = $caminho_img . ".png";
 		$img_jpeg = $caminho_img . ".jpeg";
 

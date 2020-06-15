@@ -23,19 +23,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
 
-    <!-- Iconic CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/iconic/font/css/open-iconic-bootstrap.css"); ?>'>
-
-    <!-- fontawesome CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
-
     <script src="<?php echo base_url('assets/scripts/informacoes_usuarios.js'); ?>"></script>
-    
+    <link rel="stylesheet" href='<?php echo base_url("assets/css/estilo_listage .css"); ?>'>
+
+    <style>
+        html,body {
+            height: 100%;
+            font-family: Helvetica, "Trebuchet MS", sans-serif;
+            background: #faf9f9;
+        }
+        
+    </style>
+
     <title>Listagem de usuários</title>
 </head>
 
-<body>
-    <header class="bg-dark img-thumbnail">
+<body class="row">
+    <header class="col-12 bg-dark img-thumbnail">
         <nav class="navbar">
             <div class="px-4 navbar-brand">
                 <img src='<?php echo "assets/img/logo.png"; ?>' class="d-inline-block align-top">
@@ -49,9 +53,9 @@
         </nav>
     </header>
 
-    <section>
+    <section class="col-12">
         <div class="row justify-content-around py-5">
-            
+
             <div class="col-10">
                 <div class="card">
                     <div class="card-header text-center">
@@ -69,7 +73,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody id = "tabela_tbody">
+                            <tbody id="tabela_tbody">
                             </tbody>
                         </table>
                     </div>
@@ -78,13 +82,11 @@
         </div>
     </section>
 
-    <footer class="mt-4 text-white bg-dark align-self-end">
+    <footer class="col-12 mt-4 text-white bg-dark align-self-end">
         <div class="py-3 container">
             Orgulhosamente desenvolvido por talvez um estagiário da Mind Consulting 2020.
         </div>
     </footer>
-    <input id="base_url" type="hidden" value="<?php echo base_url(); ?>" ;>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

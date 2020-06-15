@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/scripts/alterar.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
     <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
@@ -24,33 +24,19 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
 
-    <!-- Iconic CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/iconic/font/css/open-iconic-bootstrap.css"); ?>'>
+    <link rel="stylesheet" type = "text/css" href='<?php echo base_url("assets/css/estilo_inscricao.css"); ?>'>
+    
+    <script src="<?php echo base_url('assets/scripts/alterar.js'); ?>"></script>
 
-    <!-- fontawesome CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
 
-    <style>
-        #imagem_perfil_previa {
-            height: 150px;
-            width: 150px;
-            margin: 10px auto;
-            border-radius: 50px;
-        }
-
-        #imagem_perfil {
-            display: none;
-        }
-    </style>
-
-    <title>Home do usuário</title>
+    <title>Formulário de alteração de dados</title>
 
 </head>
 
 <body>
     <header class="bg-dark img-thumbnail">
         <nav class="navbar">
-            <div class="px-4 navbar-brand">
+            <div class="px-5 navbar-brand">
                 <img src='<?php echo "assets/img/logo.png"; ?>' class="d-inline-block align-top">
             </div>
 
@@ -64,22 +50,22 @@
 
     <section>
 
-        <div class="row justify-content-around pt-5">
+        <div class="row justify-content-around pt-2">
 
-            <div class="row card col-10">
+            <div class="row card col-10 justify-content-around">
                 <div class="card-header row">
                     <span id="usuario"></span>
                 </div>
 
                 <form id="form_alterar" class="card-body row justify-content-around">
 
-                    <div class="border col-3 form-group text-center align-self-center">
+                    <div class="col-3 form-group text-center align-self-center">
                         <input class="btn btn-block btn-info" type="file" id="imagem_perfil" name="imagem_perfil" class="btn">
                         <img src='<?php echo "assets/img/perfil.jpg"; ?>' id="imagem_perfil_previa" name="imagem_perfil_previa" class="img-fluid .img-thumbnail">
-                        <div class="text-danger" id="erro_imagem"></div>
+                        <div class="d-block text-danger" id="erro_imagem"></div>
                     </div>
 
-                    <div class="col-9">
+                    <div class="col-9 align-self-center">
                         <div class="col-12 form-group">
                             <label for="nome">Nome</label>
                             <input class="form-control" type="text" id="nome" name="nome" placeholder="Digite seu nome">
@@ -120,7 +106,6 @@
             Orgulhosamente desenvolvido por talvez um estagiário da Mind Consulting 2020.
         </div>
     </footer>
-    <input id="base_url" type="hidden" value="<?php echo base_url(); ?>" ;>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,8 +1,6 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
-
-    let base_url = $("#base_url").val();
     let change = false;
 
     $("#imagem_perfil_previa").on("click", () => {
@@ -28,20 +26,18 @@ $(document).ready(() => {
 
     $.ajax({
         type: "GET",
-        url: base_url + "\\Alterar_controller\\imagem_usuario",
-        contentType: "image/png",
-        async: true,
+        url: location.origin + "\\Alterar_controller\\imagem_usuario",
         success: sucesso => {
             $("#imagem_perfil_previa").attr("src", "data:image/png;base64," + sucesso);
         },
         error: () => {
-            $(location).attr("href", base_url + "\\Erro_controller");
+            $(location).attr("href", location.origin + "\\Erro_controller");
         }
     });
 
     $.ajax({
         type: "GET",
-        url: base_url + "\\Alterar_controller\\dados_usuario",
+        url: location.origin + "\\Alterar_controller\\dados_usuario",
         dataType: "json",
         success: sucesso => {
             $("#nome").val(sucesso.nome);
@@ -62,15 +58,15 @@ $(document).ready(() => {
             else if (sucesso.grau_acesso == "I") $("#usuario").html("Usuário inativo: " + primeiro_nome);
         },
         error: () => {
-            $(location).attr("href", base_url + "\\Erro_controller");
+            $(location).attr("href", location.origin + "\\Erro_controller");
         }
 
     });
 
 
     $("#voltar").on("click", () => {
-        $.get(base_url + "\\Alterar_controller\\voltar", () => {
-            $(location).attr("href", base_url + "\\Home_controller");
+        $.get(location.origin + "\\Alterar_controller\\voltar", () => {
+            $(location).attr("href", location.origin + "\\Home_controller");
         });
     });
 
@@ -84,7 +80,7 @@ $(document).ready(() => {
           
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Alterar_controller\\alterar",
+                url: location.origin + "\\Alterar_controller\\alterar",
                 data: form,
                 dataType: "json",
                 success: sucesso => {
@@ -99,22 +95,22 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Dados alterados!");
-                        $(location).attr("href", base_url + "\\Alterar_controller");
+                        $(location).attr("href", location.origin + "\\Alterar_controller");
                     } else if (sucesso.erro == false && sucesso.erro_upload == true) {
                         let $msg = "Dados alterados, não foi possível dar upload na imagem.<br>Tente novamente mais tarde!"
                         alert($msg);
-                        $(location).attr("href", base_url + "\\Alterar_controller");
+                        $(location).attr("href", location.origin + "\\Alterar_controller");
                     }
                 },
                 error: () => {
-                    $(location).attr("href", base_url + "\\Erro_controller");
+                    $(location).attr("href", location.origin + "\\Erro_controller");
                 }
             });
         } else {
 
             $.ajax({
                 type: "POST",
-                url: base_url + "\\Alterar_controller\\alterar",
+                url: location.origin + "\\Alterar_controller\\alterar",
                 data: form,
                 dataType: "json",
                 processData: false,
@@ -131,11 +127,11 @@ $(document).ready(() => {
 
                     if (sucesso.erro == false) {
                         alert("Dados alterados!");
-                        $(location).attr("href", base_url + "\\Alterar_controller");
+                        $(location).attr("href", location.origin + "\\Alterar_controller");
                     }
                 },
                 error: () => {
-                    $(location).attr("href", base_url + "\\Erro_controller");
+                    $(location).attr("href", location.origin + "\\Erro_controller");
                 }
             });
         }

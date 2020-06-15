@@ -1,8 +1,6 @@
 $(document).ready(() => {
-
-    let base_url = $("#base_url").val();
-
     $("#voltar").on("click", () => {
-        $(location).attr("href", base_url+"\\Login_controller");
+        console.log("teste"+location.origin);
+        $(location).attr("href", location.origin+"\\Login_controller");
     });
 });

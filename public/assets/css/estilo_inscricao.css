@@ -1,0 +1,69 @@
+html, body{
+    font-family: Helvetica, "Trebuchet MS", sans-serif;
+    background: #faf9f9;
+}
+
+header, nav, footer{
+    width: 100%;
+}
+
+#imagem_perfil_previa {
+    height: 200px;
+    width: 200px;
+    border-radius: 50px;
+    border: 1px solid gray;
+}
+
+#imagem_perfil {
+    display: none;
+}
+
+#erro_imagem, #erro_nome, #erro_cpf, #erro_senha, #erro_email{
+    font-size: 0.8em;
+    display: inline;
+    padding: 0px;
+    margin: 0px;
+}
+
+#nome:hover, #cpf:hover, #email:hover, #senha:hover, #imagem_perfil_previa:hover{
+    background: #e4e4ef;
+    opacity: 0.8;
+}
+
+.card-header{
+    font-size: 1.2em ;
+}
+
+.card{
+    opacity: 1;
+    background-color: #faf9f9;
+}
+
+label{
+    display: none;
+    color: black;
+    padding-left: 5px;
+}
+
+.form-group input, .form-group div{
+    padding-left: 8px;
+    margin: 0px;
+}
+
+section{
+    margin-top: 2em;
+}
+
+footer{
+    display: block;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer div{
+    padding-top: 1.1em;
+    padding-bottom: 1.3em;
+    font-size: 1.02em;
+    color: #dddddd;
+    margin: auto;
+}

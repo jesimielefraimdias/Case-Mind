@@ -1,0 +1,14 @@
+<h5>Mini tutorial</h5>
+Olá, gostaria de aprender a usar o site case mind? Se sim então continue Lendo :)<br>
+<br>
+Clicando em meus dados você verá sua foto de perfil e seus respectivos dados!
+<br>
+Já quando clicamos em alterar meus dados teremos um efeito um pouco diferente...
+<br>
+Você será redirecionado para outra página que permitirá alterar os mesmos dados, incluindo a foto!
+<br>
+Agora, se você for um administrador terá acesso ao listar usuários que permite manipular os dados de todos os outros usuários.
+<br>
+Incluindo alteração ou ativação e desativação de todas as contas.
+<br>
+Divirta-se!

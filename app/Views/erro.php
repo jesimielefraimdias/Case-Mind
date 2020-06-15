@@ -23,20 +23,11 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
-
-    <!-- Iconic CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/iconic/font/css/open-iconic-bootstrap.css"); ?>'>
-
-    <!-- fontawesome CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
+   
     <script src="<?php echo base_url('assets/scripts/erro.js'); ?>"></script>
+
     <title>Página de erro</title>
 
-    <style>
-        html, body {
-            height: 100%;
-        }
-    </style>
 </head>
 
 <body>
@@ -47,7 +38,7 @@
                 <img src='<?php echo "assets/img/logo.png"; ?>' class="d-inline-block align-top">
             </div>
 
-            <ul class="px-4 navbar-nav ml-auto">
+            <ul class="px-5 navbar-nav ml-auto">
                 <li class="nav-item">
                     <a id="voltar" href="#">Voltar</a>
                 </li>
@@ -66,7 +57,6 @@
             Orgulhosamente desenvolvido por talvez um estagiário da Mind Consulting 2020.
         </div>
     </footer>
-    <input id="base_url" type="hidden" value="<?php echo base_url(); ?>" ;>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

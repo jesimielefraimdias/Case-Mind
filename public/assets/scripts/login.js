@@ -1,20 +1,21 @@
-
-
 $(document).ready(() => {
 
-    
-    let base_url = $("#base_url").val();
-    
     $.ajax({
         type: "GET",
-        url: base_url + "\\Erro_controller\\permissao_usuario",
+        url: location.origin + "\\Erro_controller\\permissao_usuario",
         dataType: "json",
         success: sucesso => {
-            if(sucesso.acesso) $(location).attr("href", base_url + "\\Home_controller");
+            if (sucesso.acesso) $(location).attr("href", location.origin + "\\Home_controller");
         },
         error: () => {
-            $(location).attr("href", base_url + "\\Erro_controller");
+            $(location).attr("href", location.origin + "\\Erro_controller");
         }
+    });
+
+    $("#inscrever_se").on("click", () => {
+
+        console.log(location);
+        $(location).attr("href", location.origin + "\\Inscricao_controller");
     });
 
     $("#entrar").on("click", event => {
@@ -23,7 +24,7 @@ $(document).ready(() => {
 
         $.ajax({
             type: "POST",
-            url: base_url + "\\Login_controller\\login",
+            url: location.origin + "\\Login_controller\\login",
             data: form,
             dataType: "json",
             success: sucesso => {
@@ -33,12 +34,12 @@ $(document).ready(() => {
                     $("#erro_login").html(sucesso.erro.erro_login);
                 }
                 if (sucesso.erro.erro == false) {
-                    if (sucesso.data.grau_acesso != "I") $(location).attr("href", base_url + "\\Home_controller");
+                    if (sucesso.data.grau_acesso != "I") $(location).attr("href", location.origin + "\\Home_controller");
                 }
             },
 
             error: () => {
-                $(location).attr("href", base_url + "\\Erro_controller");
+                $(location).attr("href", location.origin + "\\Erro_controller");
             }
         });
 

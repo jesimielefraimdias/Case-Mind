@@ -25,24 +25,29 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
 
-    <!-- Iconic CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/iconic/font/css/open-iconic-bootstrap.css"); ?>'>
+    <link rel="stylesheet" type = "text/css" href='<?php echo base_url("assets/css/estilo_home.css"); ?>'>
+    <style>
+.imagem_perfil_previa {
+    height: 200px;
+    width: 200px;
+    border-radius: 50px;
+    border: 1px solid gray;
+}
 
-    <!-- fontawesome CSS-->
-    <link rel="stylesheet" href='<?php echo base_url("assets/fontawesome/css/all.css"); ?>'>
-
+        </style>
     <script src="<?php echo base_url('assets/scripts/home.js'); ?>"></script>
+
     <title>Home usuário</title>
 </head>
 
-<body>
-    <header class="bg-dark img-thumbnail">
+<body class="row">
+    <header class="col-12 bg-dark">
         <nav class="navbar">
             <div class="px-4 navbar-brand">
                 <img src='<?php echo "assets/img/logo.png"; ?>' class="d-inline-block align-top">
             </div>
 
-            <ul class="px-4 navbar-nav ml-auto">
+            <ul class="px-4 navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" id="sair" href="#">Sair</a>
                 </li>
@@ -50,13 +55,13 @@
         </nav>
     </header>
 
-    <section>
+    <section class="col-12">
         <div class="row">
-            <div class="bg-secondary col-2">
-                <nav id="home_nav" class="navbar">
-                    <ul class="pl-2 navbar-nav">
+            <div class="col-2">
+                <nav id="home_nav" class = "mx-1 mt-5 bg-dark">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" id="documentacao" href="#">Documentação</a>
+                            <a class="nav-link" id="documentacao" href="#">Como usar o site</a>
                         </li>
 
                         <li class="nav-item">
@@ -70,12 +75,12 @@
                 </nav>
             </div>
 
-            <div id="info" class="mx-2 pb-4 py-1 col-9 row border">
-                
+            <div id="info" class="mt-5 mx-2 pb-4 py-1 col-9 row border">
+
             </div>
     </section>
 
-    <footer class="mt-4 text-white bg-dark align-self-end">
+    <footer class="col-12 mt-4 text-white bg-dark align-self-end">
         <div class="py-3 container">
             Orgulhosamente desenvolvido por talvez um estagiário da Mind Consulting 2020.
         </div>
