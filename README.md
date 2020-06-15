@@ -32,7 +32,7 @@ Login:
 A página de login exige cpf ou email para o campo de login e a senha.
 Para facilitar, já criei alguns usuários que já estão cadastrado no banco de dados.
 Todas as senhas de usuários são "Senha123#" para facilitar os testes.
-E temos a conta admin com Login: "admin@teste.gmail.com" e senha: "Admin123#"
+E temos a conta admin com Login: "admin@gmail.com" e senha: "Admin123#"
 
 Home:
 A página home tem um mini-tutorial de como navegar no site apenas para fins didáticos.
