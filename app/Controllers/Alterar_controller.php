@@ -239,5 +239,18 @@ class Alterar_controller extends Controller
 		echo json_encode($this->msg);
 	}
 
+	public function imagem_usuario()
+	{
+		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_".$_SESSION["id_usuario"];
+		$img_png = $caminho_img.".png";
+		$img_jpeg = $caminho_img.".jpeg";
+		
+		if (file_exists($img_png)) {
+			echo base64_encode(file_get_contents($img_png));
+		} else if (file_exists($img_jpeg)) {
+			echo base64_encode(file_get_contents($img_jpeg));
+		}
+	}
+
 	//--------------------------------------------------------------------
 }

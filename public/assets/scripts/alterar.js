@@ -26,6 +26,18 @@ $(document).ready(() => {
         }
     }
 
+    $.ajax({
+        type: "GET",
+        url: base_url + "\\Alterar_controller\\imagem_usuario",
+        contentType: "image/png",
+        async: true,
+        success: sucesso => {
+            $("#imagem_perfil_previa").attr("src", "data:image/png;base64," + sucesso);
+        },
+        error: erro => {
+            console.log("erro");
+        }
+    });
 
     $.ajax({
         type: "GET",

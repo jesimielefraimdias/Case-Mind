@@ -33,14 +33,13 @@ $(document).ready(() => {
 
     $("#documentacao").on("click", () => {
         $("#info").html("");
-        $("#info").load(base_url+"\\assets\\documentacao.html");
+        $("#info").load(base_url + "\\assets\\documentacao.html");
     });
 
     $("#alterar_dados").on("click", () => {
         $.get(base_url + "\\Home_controller\\unset_usuario_comum", () => {
             $(location).attr("href", base_url + "\\Alterar_controller");
         });
-        //$(location).attr("href", base_url + "\\Alterar_controller");
     });
 
     $("#sair").on("click", () => {
@@ -48,26 +47,15 @@ $(document).ready(() => {
             $(location).attr("href", base_url + "\\Login_controller");
         });
     });
-    
-    let meus_dados_img = () => {
-        let div_img = $("<div></div>");
-        div_img.addClass("ml-2 mt-5 col-3 text-center");
 
-        let img = $("<img />");
-        img.addClass("img-fluid .img-thumbnail");
-        img.attr("id", "imagem_perfil_previa");
-        img.attr("src", base_url+"\\assets\\img\\perfil.jpg");
-        div_img.append(img);
-        $("#info").html("");
-        $("#info").append(div_img);
-    }
+  
 
     let meus_dados = sucesso => {
 
         let div1 = $("<div></div>");
         div1.addClass("row col-9");
 
-        
+
         let div11 = $("<div></div>");
         div11.addClass("px-5 py-4 mt-5 col-6");
         let strong11 = $("<strong></strong>");
@@ -99,7 +87,7 @@ $(document).ready(() => {
         let span14 = $("<span></span>");
         span14.text(sucesso.email);
         div14.append(strong14, span14);
-        
+
         div1.append(div11, div12, div13, div14);
         $("#info").append(div1);
     }
@@ -125,34 +113,56 @@ $(document).ready(() => {
            </div>
         </div>
     */
-    
+
     $("#meus_dados").on("click", () => {
 
-        $(location).attr("href", base_url + "\\Home_controller\\abrir_imagem");
-        /*
         $.ajax({
             type: "GET",
-            url: base_url + "\\Home_controller\\get_usuario",
-            dataType: "json",
+            url: base_url + "\\Home_controller\\imagem_usuario",
+            contentType: "image/png",
+            async: true,
             success: sucesso => {
-                if(sucesso.grau_acesso == "U") sucesso.grau_acesso = "Usuário";
-                else sucesso.grau_acesso = "Administrador";
 
-                let cpf;
-                cpf =  sucesso.cpf.slice(0, 3) + ".";
-                cpf += sucesso.cpf.slice(3, 6) + ".";
-                cpf += sucesso.cpf.slice(6, 9) + "-";
-                cpf += sucesso.cpf.slice(9, 11);
-                sucesso.cpf = cpf;
+                let div_img = $("<div></div>");
+                div_img.addClass("ml-2 mt-5 col-3 text-center");
 
-                meus_dados_img();
-                meus_dados(sucesso);
+                let img = $("<img />");
+                img.addClass("img-fluid .img-thumbnail");
+                img.attr("id", "imagem_perfil_previa");
+                img.attr("src", "data:image/png;base64," + sucesso);
 
+                div_img.append(img);
+                $("#info").html("");
+                $("#info").append(div_img);
+                console.log("sucesso");
             },
-            error: erro =>{
-                console.log(erro);
+            error: erro => {
+                console.log("erro");
             }
-        });*/
-
+        });
+        
+         $.ajax({
+             type: "GET",
+             url: base_url + "\\Home_controller\\get_usuario",
+             dataType: "json",
+             success: sucesso => {
+                 if(sucesso.grau_acesso == "U") sucesso.grau_acesso = "Usuário";
+                 else sucesso.grau_acesso = "Administrador";
+ 
+                 let cpf;
+                 cpf =  sucesso.cpf.slice(0, 3) + ".";
+                 cpf += sucesso.cpf.slice(3, 6) + ".";
+                 cpf += sucesso.cpf.slice(6, 9) + "-";
+                 cpf += sucesso.cpf.slice(9, 11);
+                 sucesso.cpf = cpf;
+ 
+                 meus_dados(sucesso);
+ 
+             },
+             error: erro =>{
+                 console.log(erro);
+             }
+         });
+ 
     });
 });

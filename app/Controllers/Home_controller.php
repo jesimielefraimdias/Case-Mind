@@ -9,14 +9,15 @@ class Home_controller extends Controller
 {
 	protected $model;
 
-    public function __construct(){		
+	public function __construct()
+	{
 		$this->model = new Home_model();
 		session_start();
-    }
+	}
 
-    public function permissao()
+	public function permissao()
 	{
-		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I"){
+		if (isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I") {
 			return true;
 		}
 		return false;
@@ -24,13 +25,13 @@ class Home_controller extends Controller
 
 	public function index()
 	{
-		if(!$this->permissao()){
+		if (!$this->permissao()) {
 			return view("erro.php");
 		}
-        return view("home.php");
-    }
-    
-    public function sair()
+		return view("home.php");
+	}
+
+	public function sair()
 	{
 		if (!$this->permissao()) {
 			return view("erro.php");
@@ -39,34 +40,39 @@ class Home_controller extends Controller
 		session_destroy();
 	}
 
-	public function get_usuario(){
+	public function get_usuario()
+	{
 		if (!$this->permissao()) {
 			return view("erro.php");
 		}
-		if(!isset($_SESSION["id_usuario"])) return view("erro.php");
+		if (!isset($_SESSION["id_usuario"])) return view("erro.php");
 
-		
-		if(($retorno = $this->model->get_usuario($_SESSION["id_usuario"])) == null){
+
+		if (($retorno = $this->model->get_usuario($_SESSION["id_usuario"])) == null) {
 			return view("erro.php");
 		}
-	
+
 		echo json_encode($retorno);
 	}
 
-	public function unset_usuario_comum(){
-		if(isset($_SESSION["id_usuario_comum"])){
+	public function unset_usuario_comum()
+	{
+		if (isset($_SESSION["id_usuario_comum"])) {
 			unset($_SESSION["id_usuario_comum"]);
 		}
 	}
 
-	public function abrir_imagem(){
-		$caminho_img = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_1.jpeg";
+	public function imagem_usuario()
+	{
 
-		if(file_exists($caminho_img)){
-			//print_r(file($caminho_img));
-			echo file_get_contents($caminho_img);
-			
+		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_".$_SESSION["id_usuario"];
+		$img_png = $caminho_img.".png";
+		$img_jpeg = $caminho_img.".jpeg";
+		
+		if (file_exists($img_png)) {
+			echo base64_encode(file_get_contents($img_png));
+		} else if (file_exists($img_jpeg)) {
+			echo base64_encode(file_get_contents($img_jpeg));
 		}
 	}
 }
-
