@@ -8,10 +8,13 @@ $(document).ready(() => {
 
     $.ajax({
         type: "GET",
-        url: base_url + "\\Erro_controller\\permissao_",
+        url: base_url + "\\Erro_controller\\permissao_usuario",
         dataType: "json",
         success: sucesso => {
             if(sucesso.acesso) $(location).attr("href", base_url + "\\Home_controller");
+        },
+        error: () => {
+            $(location).attr("href", base_url + "\\Erro_controller");
         }
     });
 
@@ -36,9 +39,6 @@ $(document).ready(() => {
         }
     }
 
-
-
-    //  $("#inscrever_se").on("click", event => {
     $("#form_inscricao").submit(function (event) {
         event.preventDefault();
 
@@ -74,14 +74,12 @@ $(document).ready(() => {
                         $(location).attr("href", base_url + "\\Login_controller");
                     }
                 },
-                error: erro => {
-                    console.log(erro);
-                    $("#erro_upload").html("Ocorreu um erro! Verifique se você fez upload da imagem.")
+                error: () => {
+                    $(location).attr("href", base_url + "\\Erro_controller");
                 }
             });
 
         } else {
-            console.log(form);
             $.ajax({
                 type: "POST",
                 url: base_url + "\\Inscricao_controller\\cadastro",
@@ -108,8 +106,8 @@ $(document).ready(() => {
                         $(location).attr("href", base_url + "\\Login_controller");
                     }
                 },
-                error: erro => {
-                    console.log(erro);
+                error: () => {
+                    $(location).attr("href", base_url + "\\Erro_controller");
                 }
             });
         }

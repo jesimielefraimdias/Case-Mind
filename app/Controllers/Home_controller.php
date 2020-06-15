@@ -15,7 +15,7 @@ class Home_controller extends Controller
 		session_start();
 	}
 
-	public function permissao()
+	private function permissao()
 	{
 		if (isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I") {
 			return true;

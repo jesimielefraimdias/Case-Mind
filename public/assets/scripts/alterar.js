@@ -1,11 +1,11 @@
 $(document).ready(() => {
 
     $("#cpf").mask("999.999.999-99");
-    
+
     let base_url = $("#base_url").val();
     let change = false;
 
-    $("#imagem_perfil_previa").on("click", () =>{
+    $("#imagem_perfil_previa").on("click", () => {
         $("#imagem_perfil").trigger("click");
     });
 
@@ -34,8 +34,8 @@ $(document).ready(() => {
         success: sucesso => {
             $("#imagem_perfil_previa").attr("src", "data:image/png;base64," + sucesso);
         },
-        error: erro => {
-            console.log("erro");
+        error: () => {
+            $(location).attr("href", base_url + "\\Erro_controller");
         }
     });
 
@@ -45,7 +45,7 @@ $(document).ready(() => {
         dataType: "json",
         success: sucesso => {
             $("#nome").val(sucesso.nome);
-            
+
             let cpf = sucesso.cpf.slice(0, 3) + ".";
             cpf += sucesso.cpf.slice(3, 6) + ".";
             cpf += sucesso.cpf.slice(6, 9) + "-";
@@ -53,7 +53,6 @@ $(document).ready(() => {
 
             $("#cpf").val(cpf);
             $("#email").val(sucesso.email);
-            console.log(sucesso);
 
             let primeiro_nome = sucesso.nome.split(" ");
             primeiro_nome = primeiro_nome[0];
@@ -62,8 +61,8 @@ $(document).ready(() => {
             else if (sucesso.grau_acesso == "A") $("#usuario").html("Administrador: " + primeiro_nome);
             else if (sucesso.grau_acesso == "I") $("#usuario").html("Usuário inativo: " + primeiro_nome);
         },
-        error: erro => {
-            console.log(erro);
+        error: () => {
+            $(location).attr("href", base_url + "\\Erro_controller");
         }
 
     });
@@ -82,8 +81,7 @@ $(document).ready(() => {
 
         if (!change) {
             form = $("#form_alterar").serialize();
-            console.log("Teste " + form);
-
+          
             $.ajax({
                 type: "POST",
                 url: base_url + "\\Alterar_controller\\alterar",
@@ -103,19 +101,17 @@ $(document).ready(() => {
                         alert("Dados alterados!");
                         $(location).attr("href", base_url + "\\Alterar_controller");
                     } else if (sucesso.erro == false && sucesso.erro_upload == true) {
-                        let $msg = "Dados alterados, não foi possível dar upload na imagem.<br>Acesse sua página para trocar!"
+                        let $msg = "Dados alterados, não foi possível dar upload na imagem.<br>Tente novamente mais tarde!"
                         alert($msg);
                         $(location).attr("href", base_url + "\\Alterar_controller");
                     }
                 },
-                error: erro => {
-                    console.log(erro);
-                    $("#erro_upload").html("Ocorreu um erro! Verifique se você fez upload da imagem.")
+                error: () => {
+                    $(location).attr("href", base_url + "\\Erro_controller");
                 }
             });
         } else {
 
-            console.log(form);
             $.ajax({
                 type: "POST",
                 url: base_url + "\\Alterar_controller\\alterar",
@@ -138,8 +134,8 @@ $(document).ready(() => {
                         $(location).attr("href", base_url + "\\Alterar_controller");
                     }
                 },
-                error: erro => {
-                    console.log(erro);
+                error: () => {
+                    $(location).attr("href", base_url + "\\Erro_controller");
                 }
             });
         }

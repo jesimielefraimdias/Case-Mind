@@ -9,7 +9,7 @@ class Inscricao_controller extends Controller
 {
 
     private $msg;
-    protected $model;
+    private $model;
 
     public function __construct()
     {
@@ -24,9 +24,8 @@ class Inscricao_controller extends Controller
         return view("inscricao");
     }
 
-    public function valida_cpf($cpf)
+    private function valida_cpf($cpf)
     {
-
         // Extrai somente os números
         $cpf = preg_replace('/[^0-9]/is', '', $cpf);
 
@@ -53,9 +52,8 @@ class Inscricao_controller extends Controller
         return true;
     }
 
-    public function validar_dados()
+    private function validar_dados()
     {
-
         //Deve ter uma maiscula, minuscula, números e um caracter especial.
         $uppercase = preg_match('@[A-Z]@', $_POST["senha"]);
         $lowercase = preg_match('@[a-z]@', $_POST["senha"]);
@@ -112,7 +110,7 @@ class Inscricao_controller extends Controller
         }
     }
 
-    public function valida_imagem(){
+    private function valida_imagem(){
 
         if(!isset($_FILES) || !isset($_FILES["imagem_perfil"])){
             $this->msg["erro_imagem"] = "Selecione uma imagem!";

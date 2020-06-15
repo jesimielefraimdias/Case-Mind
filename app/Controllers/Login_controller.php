@@ -8,7 +8,7 @@ use App\Models\Login_model;
 class Login_controller extends Controller
 {
     private $msg;
-    protected $model;
+    private $model;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ class Login_controller extends Controller
         return view("index.php");
     }
 
-    public function valida_cpf($cpf)
+    private function valida_cpf($cpf)
     {
 
         // Extrai somente os números
@@ -103,5 +103,3 @@ class Login_controller extends Controller
         echo json_encode($this->msg);
     }
 }
-
-?>

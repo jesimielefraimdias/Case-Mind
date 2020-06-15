@@ -12,22 +12,21 @@ $(document).ready(() => {
         success: sucesso => {
             if(sucesso.acesso) $(location).attr("href", base_url + "\\Home_controller");
         },
+        error: () => {
+            $(location).attr("href", base_url + "\\Erro_controller");
+        }
     });
 
     $("#entrar").on("click", event => {
         event.preventDefault();
-
-
         let form = $("form").serialize();
 
-        console.log(form);
         $.ajax({
             type: "POST",
             url: base_url + "\\Login_controller\\login",
             data: form,
             dataType: "json",
             success: sucesso => {
-                console.log(sucesso);
                 if (sucesso.erro.erro == true) {
                     $("#erro_emailorcpf").html(sucesso.erro.erro_emailorcpf);
                     $("#erro_senha").html(sucesso.erro.erro_senha);
@@ -38,9 +37,8 @@ $(document).ready(() => {
                 }
             },
 
-            error: erro => {
-                // $(location).attr("href", base_url + "\\Erro_controller");
-                console.log(JSON.stringify(erro));
+            error: () => {
+                $(location).attr("href", base_url + "\\Erro_controller");
             }
         });
 

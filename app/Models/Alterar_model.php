@@ -44,6 +44,14 @@ class Alterar_model extends Model
         $tipo = explode("/",$imagem_perfil["type"]);
         $target = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_".$id_usuario.".".$tipo[1];
 
+        $img = $_SERVER["DOCUMENT_ROOT"]."\\..\\assets_server\\img_usuarios\\"."imagem_".$id_usuario;
+
+        if(file_exists($img.".jpeg")){
+            unlink($img.".jpeg");
+        } else if(file_exists($img.".png")){
+            unlink($img.".png");
+        }
+
         if(!move_uploaded_file($imagem_perfil["tmp_name"], $target)){
             return false;
         }

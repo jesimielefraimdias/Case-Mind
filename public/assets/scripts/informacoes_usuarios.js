@@ -12,7 +12,10 @@ $(document).ready(() => {
                 sucesso.forEach(listagem);
                 alterarordesativar();
             },
-            error: erro => { console.log("Msg de erro:", erro); }
+            error: () => {
+                $(location).attr("href", base_url + "\\Erro_controller");
+            }
+
         });
     }
 
@@ -23,18 +26,11 @@ $(document).ready(() => {
             id = id.split("_");
 
             if (id[0] == "desativarorativar") {
-                $.ajax({
-                    type: "GET",
-                    url: base_url + "\\Informacoes_usuarios_controller\\ativarordesativar",
-                    data: "id_usuario=" + id[1],
-                    dataType: "json",
-                    success: () => {
+                $.get(base_url + "\\Informacoes_usuarios_controller\\ativarordesativar", { id_usuario: id[1] },
+                    () => {
                         atualizar_tabela();
-                    },
-                    error: erro => {
-                        console.log("Msg de erro:", erro);
                     }
-                });
+                );
 
             } else if (id[0] == "alterar") {
 
@@ -44,7 +40,6 @@ $(document).ready(() => {
                     }
                 );
             }
-            console.log(id);
         });
     }
 

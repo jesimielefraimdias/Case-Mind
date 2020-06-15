@@ -48,13 +48,12 @@ $(document).ready(() => {
         });
     });
 
-  
+
 
     let meus_dados = sucesso => {
 
         let div1 = $("<div></div>");
         div1.addClass("row col-9");
-
 
         let div11 = $("<div></div>");
         div11.addClass("px-5 py-4 mt-5 col-6");
@@ -134,35 +133,34 @@ $(document).ready(() => {
                 div_img.append(img);
                 $("#info").html("");
                 $("#info").append(div_img);
-                console.log("sucesso");
             },
-            error: erro => {
-                console.log("erro");
+            error: () => {
+                $(location).attr("href", base_url + "\\Erro_controller");
             }
         });
-        
-         $.ajax({
-             type: "GET",
-             url: base_url + "\\Home_controller\\get_usuario",
-             dataType: "json",
-             success: sucesso => {
-                 if(sucesso.grau_acesso == "U") sucesso.grau_acesso = "Usuário";
-                 else sucesso.grau_acesso = "Administrador";
- 
-                 let cpf;
-                 cpf =  sucesso.cpf.slice(0, 3) + ".";
-                 cpf += sucesso.cpf.slice(3, 6) + ".";
-                 cpf += sucesso.cpf.slice(6, 9) + "-";
-                 cpf += sucesso.cpf.slice(9, 11);
-                 sucesso.cpf = cpf;
- 
-                 meus_dados(sucesso);
- 
-             },
-             error: erro =>{
-                 console.log(erro);
-             }
-         });
- 
+
+        $.ajax({
+            type: "GET",
+            url: base_url + "\\Home_controller\\get_usuario",
+            dataType: "json",
+            success: sucesso => {
+                if (sucesso.grau_acesso == "U") sucesso.grau_acesso = "Usuário";
+                else sucesso.grau_acesso = "Administrador";
+
+                let cpf;
+                cpf = sucesso.cpf.slice(0, 3) + ".";
+                cpf += sucesso.cpf.slice(3, 6) + ".";
+                cpf += sucesso.cpf.slice(6, 9) + "-";
+                cpf += sucesso.cpf.slice(9, 11);
+                sucesso.cpf = cpf;
+
+                meus_dados(sucesso);
+
+            },
+            error: () => {
+                $(location).attr("href", base_url + "\\Erro_controller");
+            }
+        });
+
     });
 });

@@ -7,7 +7,7 @@ use App\Models\Alterar_model;
 
 class Alterar_controller extends Controller
 {
-	protected $model;
+	private $model;
 	private $msg;
 
 	public function __construct()
@@ -31,7 +31,7 @@ class Alterar_controller extends Controller
 		}
 	}
 
-	public function permissao()
+	private function permissao()
 	{
 		if (isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] != "I") {
 			return true;
@@ -76,7 +76,7 @@ class Alterar_controller extends Controller
 		echo json_encode($retorno);
 	}
 
-	protected function valida_cpf($cpf)
+	private function valida_cpf($cpf)
 	{
 
 		// Extrai somente os números
@@ -105,7 +105,7 @@ class Alterar_controller extends Controller
 		return true;
 	}
 
-	protected function validar_dados($id)
+	private function validar_dados($id)
 	{
 
 		//Deve ter uma maiscula, minuscula, números e um caracter especial.
@@ -169,7 +169,7 @@ class Alterar_controller extends Controller
 		}
 	}
 
-	public function valida_imagem()
+	private function valida_imagem()
 	{
 
 		if (!isset($_FILES) || !isset($_FILES["imagem_perfil"])) {
@@ -214,7 +214,7 @@ class Alterar_controller extends Controller
 			$this->valida_imagem();
 		}
 
-		if($this->msg["erro"]){
+		if ($this->msg["erro"]) {
 			echo json_encode($this->msg);
 			return;
 		}
@@ -241,10 +241,10 @@ class Alterar_controller extends Controller
 
 	public function imagem_usuario()
 	{
-		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_".$_SESSION["id_usuario"];
-		$img_png = $caminho_img.".png";
-		$img_jpeg = $caminho_img.".jpeg";
-		
+		$caminho_img = $_SERVER["DOCUMENT_ROOT"] . "\\..\\assets_server\\img_usuarios\\" . "imagem_" . $_SESSION["id_usuario"];
+		$img_png = $caminho_img . ".png";
+		$img_jpeg = $caminho_img . ".jpeg";
+
 		if (file_exists($img_png)) {
 			echo base64_encode(file_get_contents($img_png));
 		} else if (file_exists($img_jpeg)) {

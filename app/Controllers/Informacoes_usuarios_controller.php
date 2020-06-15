@@ -7,14 +7,14 @@ use App\Models\Informacoes_usuarios_model;
 
 class Informacoes_usuarios_controller extends Controller
 {
-	protected $model;
+	private $model;
 
     public function __construct(){
 		session_start();
 		$this->model = new Informacoes_usuarios_model();
     }
 	
-    public function permissao()
+    private function permissao()
 	{
 		if(isset($_SESSION["grau_acesso"]) && $_SESSION["grau_acesso"] == "A"){
 			return true;
@@ -40,6 +40,5 @@ class Informacoes_usuarios_controller extends Controller
 			return view("erro.php");
 		}
 		$this->model->ativarordesativar($_GET["id_usuario"]);
-		echo json_encode($_GET);
 	}
 }
