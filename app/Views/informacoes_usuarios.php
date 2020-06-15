@@ -15,6 +15,7 @@
 
     <script src="<?php echo base_url('assets/scripts/jquery-3.5.1.js'); ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script>
+
     <!-- Bootstrap CSS 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
@@ -22,18 +23,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href='<?php echo base_url("assets/bootstrap4/bootstrap/bootstrap.min.css"); ?>'>
-
     <script src="<?php echo base_url('assets/scripts/informacoes_usuarios.js'); ?>"></script>
-    <link rel="stylesheet" href='<?php echo base_url("assets/css/estilo_listage .css"); ?>'>
-
-    <style>
-        html,body {
-            height: 100%;
-            font-family: Helvetica, "Trebuchet MS", sans-serif;
-            background: #faf9f9;
-        }
-        
-    </style>
+    <link rel="stylesheet" href='<?php echo base_url("assets/css/estilo_listagem.css"); ?>'>
 
     <title>Listagem de usuários</title>
 </head>

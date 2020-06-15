@@ -182,8 +182,8 @@ class Alterar_controller extends Controller
 		$tipo = explode("/", $imagem_perfil["type"]);
 
 		//Tamanho máximo 2.5mb
-		if ($imagem_perfil["size"] > 2500000) {
-			$this->msg["erro_imagem"] = "A imagem é muito grande";
+		if ($imagem_perfil["size"] > 4194304) {
+			$this->msg["erro_imagem"] = "Tamanho máximo 4mb";
 			$this->msg["erro"] = true;
 			return;
 		}

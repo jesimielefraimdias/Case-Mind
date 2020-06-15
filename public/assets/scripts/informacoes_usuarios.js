@@ -1,8 +1,9 @@
 $(document).ready(() => {
 
-//    let location.origin = $("#location.origin").val();
+    //    let location.origin = $("#location.origin").val();
 
     atualizar_tabela = () => {
+
         $.ajax({
             type: "GET",
             url: location.origin + "\\Informacoes_usuarios_controller\\get_usuarios",
@@ -11,6 +12,7 @@ $(document).ready(() => {
                 $("#tabela_tbody").html("");
                 sucesso.forEach(listagem);
                 alterarordesativar();
+
             },
             error: () => {
                 $(location).attr("href", location.origin + "\\Erro_controller");
