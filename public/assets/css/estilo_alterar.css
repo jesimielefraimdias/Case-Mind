@@ -40,6 +40,7 @@ header, nav, footer{
 }
 
 label{
+    display: none;
     color: black;
     padding-left: 5px;
 }
